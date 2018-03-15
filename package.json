@@ -16,7 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "lodash": "^4.17.5",
+    "mongodb": "^3.0.4",
+    "mongoose": "^5.0.10",
+    "validator": "^9.4.1"
   },
   "devDependencies": {
     "concurrently": "^3.5.1"
