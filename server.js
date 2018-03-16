@@ -3,8 +3,8 @@ const path = require('path');
 const _ = require('lodash');
 const bodyParser = require('body-parser');
 var http = require("http");
-var {mongoose} = require('./db/mongoose.js');
 
+var {mongoose} = require('./db/mongoose.js');
 var {User} = require('./models/user');
 var {authenticate} = require('./middleware/authenticate');
 
