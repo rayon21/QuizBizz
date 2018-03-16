@@ -27,10 +27,22 @@ app.post('/users', (req, res) => {
 	})
 });
 
+//login an user
+app.post('/login', (req, res) => {
+	var body = _.pick(req.body, ['email', 'password']);
+	User.findByCredentials(body.email, body.password).then((user) => {
+		return user.generateAuthToken().then((token) => {
+			res.header('x-auth', token).send(user);
+		});
+	}).catch((e) => {
+		res.status(400).send();
+	});
+})
+
 //*****  API CALLS *****
 
 //test endpoint
-app.get('/api/:version', authenticate, function(req, res) {
+app.get('/api/:version', function(req, res) {
     res.send(req.params.version);
   });
 
