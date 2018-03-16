@@ -6,17 +6,12 @@ var http = require("http");
 var {mongoose} = require('./db/mongoose.js');
 
 var {User} = require('./models/user');
+var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
 const port = process.env.PORT || 8888;
 
 app.use(bodyParser.json());
-
-function onRequest(request, response) {
-	response.writeHead(200, {"Context-Type": "text/plain"});
-	response.write("Hello Brogrammers");
-	response.end();
-}
 
 app.post('/users', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
@@ -35,7 +30,7 @@ app.post('/users', (req, res) => {
 
 //*****  API CALLS *****
 
-app.get('/api/:version', function(req, res) {
+app.get('/api/:version', authenticate, function(req, res) {
     res.send(req.params.version);
   });
 
