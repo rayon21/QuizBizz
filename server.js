@@ -13,6 +13,7 @@ const port = process.env.PORT || 8888;
 
 app.use(bodyParser.json());
 
+//registers an user
 app.post('/users', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
 	var user = new User(body);
@@ -26,10 +27,9 @@ app.post('/users', (req, res) => {
 	})
 });
 
-//endpoint test
-
 //*****  API CALLS *****
 
+//test endpoint
 app.get('/api/:version', authenticate, function(req, res) {
     res.send(req.params.version);
   });
