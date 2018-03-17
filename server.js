@@ -11,6 +11,7 @@ var {authenticate} = require('./middleware/authenticate');
 var app = express();
 const port = process.env.PORT || 8888;
 
+//middleware used to extract body of post request
 app.use(bodyParser.json());
 
 //registers an user
@@ -51,7 +52,7 @@ app.delete('/logout', authenticate, (req, res) => {
 
 //test endpoint
 app.get('/api/:version', function(req, res) {
-    res.send(req.params.version);
+    res.send("ASS");
   });
 
 app.get('/api/quizzes/:teacherID', function(req, res) {
@@ -64,14 +65,14 @@ app.get('/api/quizzes/:teacherID', function(req, res) {
 //***** REACT FILES *****
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
+// // The "catchall" handler: for any request that doesn't
+// // match one above, send back React's index.html file.
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
+// });
 
 
 app.listen(port, () => {

@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 //   password: 'adpsofijasdfmpoijwerew',
 //   tokens: [{
 //     access: 'auth',
-//     token: 'poijasdpfoimasdpfjiweproijwer'
+//     token: 'poijasdpfoimasd3432pfjiweproijwer'
 //   }]
 // }
 
