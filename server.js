@@ -29,7 +29,7 @@ app.post('/users', (req, res) => {
 });
 
 //login an user
-app.post('/login', (req, res) => {
+app.post('/users/login', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
 	User.findByCredentials(body.email, body.password).then((user) => {
 		return user.generateAuthToken().then((token) => {
@@ -41,7 +41,7 @@ app.post('/login', (req, res) => {
 })
 
 //logout
-app.delete('/logout', authenticate, (req, res) => {
+app.delete('/users/logout', authenticate, (req, res) => {
 	req.user.removeToken(req.token).then(() => {
 		res.status(200).send();
 	}, () => {
