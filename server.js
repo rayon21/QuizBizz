@@ -16,6 +16,8 @@ const port = process.env.PORT || 8888;
 //middleware used to extract body of post request
 app.use(bodyParser.json());
 
+//*****  USER API *****//
+
 //registers an user
 app.post('/users', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
@@ -52,10 +54,10 @@ app.delete('/users/logout', authenticate, (req, res) => {
 })
 
 
-//*****  QUIZ CALLS *****
+//*****  QUIZ CALLS *****//
 
 // cal to save quiz, user must be logged in
-app.post('/quizzes', authenticate, (req, res) => {
+app.post('/api/quizzes', authenticate, (req, res) => {
   var quiz = new Quiz({
     title: req.body.title,
     description: req.body.description,
@@ -72,7 +74,7 @@ app.post('/quizzes', authenticate, (req, res) => {
 });
 
 // gets all quizzes based on the user that is logged in
-app.get('/quizzes', authenticate, (req, res) => {
+app.get('/api/quizzes', authenticate, (req, res) => {
   Quiz.find({
     _creator: req.user._id
   }).then((quizzes) => {
@@ -83,7 +85,7 @@ app.get('/quizzes', authenticate, (req, res) => {
 });
 
 // gets the quiz with the mathcing id (Every Quiz has an _id)
-app.get('/quizzes/:id', authenticate, (req, res) => {
+app.get('/api/quizzes/:id', authenticate, (req, res) => {
   var id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
@@ -105,7 +107,7 @@ app.get('/quizzes/:id', authenticate, (req, res) => {
 });
 
 // deletes the quiz based on the _id
-app.delete('/quizzes/:id', authenticate, (req, res) => {
+app.delete('api/quizzes/:id', authenticate, (req, res) => {
   var id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
@@ -127,7 +129,7 @@ app.delete('/quizzes/:id', authenticate, (req, res) => {
 });
 
 // updates the quiz based on the quiz _id
-app.patch('/quizzes/:id', authenticate, (req, res) => {
+app.patch('api/quizzes/:id', authenticate, (req, res) => {
   var id = req.params.id;
   var body = _.pick(req.body, ['title', 'completed']);
 
@@ -152,6 +154,9 @@ app.patch('/quizzes/:id', authenticate, (req, res) => {
     res.status(400).send();
   })
 });
+
+//*****  ROOM API *****//
+
 
 
 //*****  API CALLS *****
