@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class CreateQuizPage extends Component {
 
@@ -13,7 +14,15 @@ class CreateQuizPage extends Component {
 	}
 
 	handleSubmit(e) {
-		return
+		const token = localStorage.getItem('token');
+		axios.post('/api/quizzes', {
+			title: this.state.title,
+			description: this.state.description
+		}, {headers: {
+			'x-auth': token
+		}}).then((res) => {
+			console.log(localStorage.getItem('token'));
+		});
 	}
 
 	handleInput(e) {
@@ -31,7 +40,7 @@ class CreateQuizPage extends Component {
 					<label htmlFor="name">Description: </label>
 					<input type="text" className="form-control" id="description" name="description" onChange={this.handleInput}/>
 				</div>
-				<button className="btn btn-primary">Create</button>
+				<button className="btn btn-primary" onClick={this.handleSubmit}>Create</button>
 			</div>
 		)
 	}

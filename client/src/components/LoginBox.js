@@ -22,14 +22,19 @@ class LoginBox extends Component {
 		this.setState({password: e.target.value});
 	}
 
+	saveToken(value) {
+		localStorage.setItem('token', value);
+	}
+
 	register(e) {
 		e.preventDefault();
 		axios.post('/users/login', {
 			email: this.state.email,
 			password: this.state.password
 		}).then((res) => {
-			console.log(res.data);
+			console.log(res.headers['x-auth']);
 			if (res.status == 200) {
+				this.saveToken(res.headers['x-auth']);
 				this.props.history.push("/quizzes");
 			}
 		});

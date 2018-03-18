@@ -56,7 +56,7 @@ app.delete('/users/logout', authenticate, (req, res) => {
 
 //*****  QUIZ CALLS *****//
 
-// cal to save quiz, user must be logged in
+// call to save quiz, user must be logged in
 app.post('/api/quizzes', authenticate, (req, res) => {
   var quiz = new Quiz({
     title: req.body.title,
