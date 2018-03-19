@@ -28,6 +28,7 @@ app.post('/users', (req, res) => {
 	}).then((token) => {
 		res.header('x-auth', token).send(user);
 	}).catch((e) => {
+    console.log(e);
 		res.status(400).send(e);
 	})
 });
@@ -87,7 +88,7 @@ app.get('/api/quizzes', authenticate, (req, res) => {
 // gets the quiz with the mathcing id (Every Quiz has an _id)
 app.get('/api/quizzes/:id', authenticate, (req, res) => {
   var id = req.params.id;
-
+  
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }

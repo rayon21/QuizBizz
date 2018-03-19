@@ -30,7 +30,7 @@ class RegistrationBox extends Component {
 		}).then((res) => {
 			console.log(res.data);
 			this.props.history.push("/quizzes");
-		});
+		}).catch((e) => console.log(e));
 	}
 
 	componentDidMount() {

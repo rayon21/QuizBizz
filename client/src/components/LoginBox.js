@@ -35,7 +35,7 @@ class LoginBox extends Component {
 			console.log(res.headers['x-auth']);
 			if (res.status == 200) {
 				this.saveToken(res.headers['x-auth']);
-				this.props.history.push("/quizzes");
+				this.props.history.push("/quizzes/");
 			}
 		});
 	}

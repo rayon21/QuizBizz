@@ -21,7 +21,7 @@ class CreateQuizPage extends Component {
 		}, {headers: {
 			'x-auth': token
 		}}).then((res) => {
-			console.log(localStorage.getItem('token'));
+			this.props.history.push("/quiz/" + res.data._id);
 		});
 	}
 
