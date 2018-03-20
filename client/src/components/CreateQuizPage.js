@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import QuestionInput from './QuestionInput.js';
 
 class CreateQuizPage extends Component {
 
@@ -7,17 +8,21 @@ class CreateQuizPage extends Component {
 		super();
 		this.state = {
 			title: '',
-			description: ''
+			description: '',
+			questions: []
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleInput = this.handleInput.bind(this);
+		this.addQuestion = this.addQuestion.bind(this);
+		this.updateQuestion = this.updateQuestion.bind(this);
 	}
 
 	handleSubmit(e) {
 		const token = localStorage.getItem('token');
 		axios.post('/api/quizzes', {
 			title: this.state.title,
-			description: this.state.description
+			description: this.state.description,
+			questions: this.state.questions
 		}, {headers: {
 			'x-auth': token
 		}}).then((res) => {
@@ -27,6 +32,26 @@ class CreateQuizPage extends Component {
 
 	handleInput(e) {
 		this.setState({[e.target.name]: e.target.value});
+	}
+
+	addQuestion() {
+		this.setState({questions: [...this.state.questions, ""]});
+	}
+
+	updateQuestion(index, question) {
+		var questionsArray = [...this.state.questions];
+		questionsArray[index] = question;
+		this.setState({
+			questions: questionsArray
+		})
+	}
+
+	renderQuestions() {
+		return this.state.questions.map((question, i) => {
+			return (
+				<QuestionInput number={i + 1} key={i} question={question} updateQuestion={this.updateQuestion}/>
+			)
+		})
 	}
 
 	render() {
@@ -40,7 +65,17 @@ class CreateQuizPage extends Component {
 					<label htmlFor="name">Description: </label>
 					<input type="text" className="form-control" id="description" name="description" onChange={this.handleInput}/>
 				</div>
-				<button className="btn btn-primary" onClick={this.handleSubmit}>Create</button>
+				<div className="container">
+					{this.renderQuestions()}
+				</div>
+				<div className="row">
+					<div className="col text-center">
+						<button className="btn btn-primary" onClick={this.addQuestion}>Add Question</button>
+					</div>
+				</div>
+				<div className="row">
+					<button className="btn btn-primary" onClick={this.handleSubmit}>Create</button>
+				</div>
 			</div>
 		)
 	}
