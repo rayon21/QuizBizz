@@ -6,6 +6,7 @@ import LoginBox from './components/LoginBox.js';
 import QuizzesPage from './components/QuizzesPage';
 import QuizPage from './components/QuizPage';
 import CreateQuizPage from './components/CreateQuizPage';
+import PresenterPage from './components/PresenterPage';
 
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,6 +22,7 @@ class App extends Component {
           <Route path="/quizzes" component={QuizzesPage}/>
           <Route path="/quiz" component={QuizPage}/>
           <Route path="/create" component={CreateQuizPage}/>
+          <Route path="/room/:id" component={PresenterPage}/>
         </Switch>
       </BrowserRouter>
     );

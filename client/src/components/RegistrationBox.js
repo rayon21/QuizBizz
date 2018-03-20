@@ -41,7 +41,7 @@ class RegistrationBox extends Component {
 		return (
 			<div className="container mb-3">
 				<div className="col-sm-4 offset-sm-4 border pb-3 pt-4 mb-3">
-					<h3>Resigter</h3>
+					<h3>Register</h3>
 					<form action="" className="mb-3">
 						<div className="form-group">
 							<label htmlFor="email-input">Email Address</label>
