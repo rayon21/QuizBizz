@@ -47,12 +47,12 @@ var deleteCode = (codeArr, codeTodelete) =>{
 };
 
 
-//demostrate
+/*demostrate
 var codeArr = ["aaaa", "ZZZZ"];
 addCode(codeArr);
 console.log(codeArr);
 deleteCode(codeArr, "aaaa");
-console.log(codeArr);
+console.log(codeArr);*/
 
 module.exports = {
     addCode,
