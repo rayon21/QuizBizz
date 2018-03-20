@@ -1,12 +1,3 @@
-const _ = require('lodash');
-/*
-
-check if the new code == to first of ary if yes, +1
-*/
-
-var codeArr = [];
-var arrLen = codeArr.length;
-
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
@@ -30,16 +21,41 @@ var incrementCode = (code) => {
     return code;
 };
 
-var generateCode = () => {
+var generateCode = (arrLen) => {
     var code = "aaaa";
     var isDuplicate ;
 
     if(arrLen !== 0){
         code = codeArr[arrLen-1];
+        console.log(code);
         do{
-            incrementCode(code);
+            code = incrementCode(code);
             isDuplicate = codeArr.includes(code); //check if code alrdy exist
         }while (isDuplicate === true);
     }
     return code;
 };
+
+var addCode = (codeArr) =>{
+    var code = generateCode(codeArr.length);
+    codeArr.push(code);
+};
+
+var deleteCode = (codeArr, codeTodelete) =>{
+    var idx = codeArr.indexOf(codeTodelete);
+    codeArr.splice(idx, 1);
+};
+
+
+//demostrate
+var codeArr = ["aaaa", "ZZZZ"];
+addCode(codeArr);
+console.log(codeArr);
+deleteCode(codeArr, "aaaa");
+console.log(codeArr);
+
+module.exports = {
+    addCode,
+    deleteCode
+};
+
