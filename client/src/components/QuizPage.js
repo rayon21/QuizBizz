@@ -60,6 +60,11 @@ class QuizPage extends Component {
 						</div>
 					</div>
 				</div>
+				<div className="row mt-4">
+					<div className="col text-center">
+						<div className="btn btn-primary">Add Question</div>
+					</div>
+				</div>
 			</div>
 		)
 	}
