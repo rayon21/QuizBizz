@@ -7,7 +7,7 @@ import QuizzesPage from './components/QuizzesPage';
 import QuizPage from './components/QuizPage';
 import CreateQuizPage from './components/CreateQuizPage';
 import SocketClient from './components/SocketClient';
-
+import PresenterPage from './components/PresenterPage';
 
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,7 +24,7 @@ class App extends Component {
           <Route path="/quiz" component={QuizPage}/>
           <Route path="/create" component={CreateQuizPage}/>
           <Route path="/join" component={SocketClient}/>
-
+          <Route path="/room/:id" component={PresenterPage}/>
         </Switch>
       </BrowserRouter>
     );
