@@ -61,3 +61,7 @@ class RegistrationBox extends Component {
 }
 
 export default RegistrationBox;
+
+
+
+

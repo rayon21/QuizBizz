@@ -156,12 +156,8 @@ app.patch('api/quizzes/:id', authenticate, (req, res) => {
   })
 });
 
-// SOCKET
 
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-io.on('connection', function(){ console.log(HELLO); });
-=======
+
 //*****  ROOM API *****//
 
 
@@ -194,6 +190,25 @@ io.on('connection', function(){ console.log(HELLO); });
 // });
 
 
-app.listen(port, () => {
+var server = app.listen(port, () => {
   console.log(`Started up at port ${port}`);
 });
+
+
+// SOCKET
+
+
+var io = require('socket.io').listen(server);
+io.on("connection", socket => {
+  console.log("New client connected");
+  socket.emit("FromAPI", "BUDDY");
+  socket.on("disconnect", () => console.log("Client disconnected"));
+});
+
+
+
+
+
+
+
+
