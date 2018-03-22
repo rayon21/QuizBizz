@@ -7,25 +7,28 @@ class QuestionInput extends Component {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.state = {
-			value: ''
 		}
 	}
 
 	handleChange(e) {
-		this.setState({value: e.target.value});
-		this.props.updateQuestion(this.props.number - 1, e.target.value);
-		console.log(e.target.value);
+		const questionAnswer = {
+			question: this.refs.questionText.value,
+			answer: this.refs.answerText.value
+		}
+		this.props.updateQuestion(this.props.number - 1, questionAnswer);
+		console.log(this.refs.answerText.value);
 	}
 
 	didComponentMount() {
-		this.setState({value: this.props.question});
+		this.setState({question: this.props.question});
 	}
 
 	render() {
 		return (
 			<div className="form-group">
 				<label htmlFor="">{this.props.number}</label>
-				<input type="text" className="form-control"  onChange={this.handleChange} value={this.state.value}/>
+				<input className="question" type="text" className="form-control" ref="questionText" onChange={this.handleChange}/>
+				<input className="answer" type="text" className="form-control" ref="answerText" onChange={this.handleChange}/>
 			</div>
 		)
 	}

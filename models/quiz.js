@@ -24,19 +24,20 @@ var Quiz = mongoose.model('Quiz', {
      type : Array ,
      "default" : []
    },
-  // questions:[{
-  //   question:{
-  //     type: String,
-  //     required: true
-  //   },
-  //   answer: {
-  //     type: String,
-  //     required: true
-  //   }
-  questions:{
-     type : Array ,
-     "default" : []
-  },  
+  questions:[{
+    question:{
+      type: String,
+      required: true
+    },
+    answer: {
+      type: String,
+      required: true
+    }
+  }],
+  // questions:{
+  //    type : Array ,
+  //    "default" : []
+  // },  
 
    completed: {
     type: Boolean,
