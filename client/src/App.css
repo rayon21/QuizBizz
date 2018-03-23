@@ -49,32 +49,31 @@ body {
 }
 /* Registration */
 
-.red {background-color: red}
 .reg-container {
   background-color: #FFF;
-  border-radius: 10px;
+  border-radius: 13px;
   box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.00);
   padding-right: 25px;
   padding-left: 25px;
-  height: 300px;
+  height: 330px;
 }
 
-.reg-container input {
+/*.reg-container input {
   border: none;
   border-radius: 0;
   border-bottom: 2px solid #5764f9;
-}
+}*/
 
 .reg-container h3 {
   font-weight: 300;
   color: #444;
 }
 
-.reg-container label {
+/*.reg-container label {
   text-transform: uppercase;
   font-size: 0.8em;
   color: #555;
-}
+}*/
 
 .info-section {
   background-color: #5764f9;
