@@ -6,7 +6,7 @@ class Header extends Component {
 		return (
 			<nav>
 				<svg version="1.1" id="Layer_1" x="0px" y="0px"
-	 viewBox="0 0 326.3 66.9">
+	 viewBox="0 0 326.3 66.9" preserveAspectRatio>
 <g id="XMLID_1_">
 	<path id="XMLID_6_" d="M99,45.1c0,13.6-8.2,19.4-21.2,19.4c-4.8,0-11.8-1.2-16.4-6.3c-2.8-3.2-3.9-7.3-4-12.5V11.5h11V45
 		c0,7.2,4.2,10.4,9.2,10.4c7.4,0,10.4-3.6,10.4-9.9V11.5h11V45.1z"/>

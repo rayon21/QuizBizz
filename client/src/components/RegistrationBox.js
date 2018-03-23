@@ -39,10 +39,10 @@ class RegistrationBox extends Component {
 
 	render() {
 		return (
-			<div className="container mb-3">
-				<div className="col-sm-4 offset-sm-4 pb-3 pt-4 mb-3 reg-container">
+			<div className="d-flex pr-5 pl-5 flex-column">
+				<div className="col-sm-12 pb-3 pt-4 mb-3 reg-container">
 					<h4 className="mt-4 mb-4">Join with your email</h4>
-					<form action="" className="mb-3">
+					<form action="" className="">
 						<div className="form-group">
 							<input type="email" className="form-control" id="email-input" aria-describedby="emailHelp" placeholder="email" onChange={this.handleEmail}/>
 						</div>
@@ -54,7 +54,12 @@ class RegistrationBox extends Component {
 						</div>
 					</form>
 				</div>
-				<Link to="/login" className="text-center d-block text-white">Already a user? Login here</Link>
+				<div className="row">
+				<div className="col-md-12 mt-4">
+					<Link to="/login" className="text-center d-block">Already a user? Login here</Link>
+					</div>
+				</div>
+
 			</div>
 		)
 	}

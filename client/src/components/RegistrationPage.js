@@ -7,7 +7,14 @@ class RegistrationPage extends Component {
 		return (
 			<div>
 				<Header/>
-				<RegistrationBox/>
+				<div className="">
+					<div className="row">
+						<div className="col-md-7 info-section"></div>
+						<div className="col-md-5 reg-section pt-5">
+							<RegistrationBox/>
+						</div>
+					</div>
+				</div>
 			</div>
 		)
 	}
