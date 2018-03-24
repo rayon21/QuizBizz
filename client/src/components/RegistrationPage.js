@@ -11,7 +11,7 @@ class RegistrationPage extends Component {
 					<div className="row">
 						<div className="col-md-7 info-section"></div>
 						<div className="col-md-5 reg-section pt-5">
-							<RegistrationBox/>
+							<RegistrationBox history={this.props.history}/>
 						</div>
 					</div>
 				</div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './components/Header.js';
 import RegistrationPage from './components/RegistrationPage.js';
-import LoginBox from './components/LoginBox.js';
+import LoginPage from './components/LoginPage.js';
 import QuizzesPage from './components/QuizzesPage';
 import QuizPage from './components/QuizPage';
 import CreateQuizPage from './components/CreateQuizPage';
@@ -17,7 +17,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={RegistrationPage}/>
-          <Route exact path="/login" component={LoginBox}/>
+          <Route exact path="/login" component={LoginPage}/>
           <Route path="/quizzes" component={QuizzesPage}/>
           <Route path="/quiz" component={QuizPage}/>
           <Route path="/create" component={CreateQuizPage}/>

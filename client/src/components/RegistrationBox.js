@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
+import { CircularProgress } from 'material-ui/Progress';
 
 
 var validator = require('validator');
@@ -13,7 +14,8 @@ class RegistrationBox extends Component {
 			email: '',
 			password: '',
 			validEmail: null,
-			validPassword: null
+			validPassword: null,
+			loading: false
 		}
 		this.handleEmail = this.handleEmail.bind(this);
 		this.handlePassword = this.handlePassword.bind(this);
@@ -37,12 +39,19 @@ class RegistrationBox extends Component {
 
 	register(e) {
 		e.preventDefault();
+		this.setState({loading: true});
+		if (!this.state.validEmail || !this.state.validPassword) {
+			this.setState({loading: false});
+			return false;
+		}
 		axios.post('/users', {
 			email: this.state.email,
 			password: this.state.password
 		}).then((res) => {
 			console.log(res.data);
+			this.setState({loading: false});
 			this.props.history.push("/quizzes");
+			//TODO login user
 		}).catch((e) => console.log(e));
 	}
 
@@ -62,7 +71,6 @@ class RegistrationBox extends Component {
 	}
 
 	render() {
-		var x = false;
 		return (
 			<div className="d-flex pr-5 pl-5 flex-column">
 				<div className="col-sm-12 pb-3 pt-4 mb-4 reg-container">
@@ -89,13 +97,18 @@ class RegistrationBox extends Component {
 					      helperText={this.state.validPassword || this.state.validPassword == null ? "" : "Password must be 6 characters in length"}
 					    />
 					    <div className="text-right">
-					    	<button className="btn btn-primary mt-4 mb-3" onClick={this.register}>register</button>
+					    	<button className="btn btn-primary mt-4 mb-3 d-flex align-items-center reg-button" onClick={this.register}>
+					    		{ this.state.loading ?
+					    			<CircularProgress size={24} className="loading" color="white"/> :
+					    			"register"
+					    		}
+					    	</button>
 					    </div>
 					</form>
 				</div>
 				<div className="row">
-				<div className="col-md-12 mt-4">
-					<Link to="/login" className="text-center d-block">Already a user? Login here</Link>
+					<div className="col-md-12 mt-4">
+						<Link to="/login" className="text-center d-block">Already a user? Login here</Link>
 					</div>
 				</div>
 

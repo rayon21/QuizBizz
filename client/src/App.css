@@ -32,6 +32,10 @@ body {
   font-weight: 300;
 }
 
+html, body, #root {
+  height: 100vh;
+}
+
 .btn {
   border-radius: 15px;
 }
@@ -55,7 +59,6 @@ body {
   box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.00);
   padding-right: 25px;
   padding-left: 25px;
-  height: 330px;
 }
 
 /*.reg-container input {
@@ -88,7 +91,7 @@ nav {
   top: 0;
 }
 
-svg {
+.logo {
   fill: white;
   width: 120px;
   margin-top: 30px;
@@ -97,3 +100,8 @@ svg {
   position: absolute;
 }
 
+/* Login */
+.login-container {
+  background-color: #5764f9;
+  height: 100%;
+}
