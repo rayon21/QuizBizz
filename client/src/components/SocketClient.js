@@ -1,18 +1,48 @@
 import React, { Component } from "react";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
+
 class SocketClient extends Component {
   constructor() {
     super();
     this.state = {
-      response: false,
-      endpoint: "http://localhost:8888"
+      endpoint: "http://localhost:8888",
+      playerName: "",
+      roomId: ""
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
+
+// need to do this when the user presses enter on the form 
   componentDidMount() {
     const { endpoint } = this.state;
-    const socket = socketIOClient(endpoint);
-    socket.on("FromAPI", data => this.setState({ response: data }));
+    this.socket = io(endpoint);
   }
+
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value
+    })
+  }
+
+  handleSubmit(e){
+      const body = e.target.value;
+      console.log(body);
+
+      var data = {
+      // needs to be elements from the forms, not random data
+        roomId : this.state.roomId,
+        playerName : this.state.playerName
+      };
+
+      // Send the gameId and playerName to the server
+      
+      this.socket.emit('playerJoinGame', data);
+      e.target.value = '';
+    }
+  
+
   render() {
     const { response } = this.state;
     return (
@@ -29,9 +59,11 @@ class SocketClient extends Component {
           <form action="" className="mb-3">
             <div className="form-group">
               <label>Room Code</label>
-              <input type="text" className="form-control" placeholder="Enter code..." onChange={this.handleEmail}/>
+              <input type="text" className="form-control" placeholder="Enter Name..." onChange={this.handleChange('playerName')}/>
+              <input type="text" className="form-control" placeholder="Enter code..." onChange={this.handleChange('roomId')}/>
+
             </div>
-            <button type="submit" className="btn btn-primary" onClick={this.register}>Enter</button>
+            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Enter</button>
           </form>
         </div>
       </div>

@@ -36,7 +36,8 @@ var deleteCode = (codeArr, codeTodelete) =>{
 };
 
 module.exports = {
-    addCode,
-    deleteCode
+    //addCode,
+    //deleteCode,
+    generateCode
 };
 

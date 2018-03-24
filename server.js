@@ -194,15 +194,15 @@ var server = app.listen(port, () => {
   console.log(`Started up at port ${port}`);
 });
 
+var quizzes = require('./models/QuizGame');
 
 // SOCKET
 
 
 var io = require('socket.io').listen(server);
-io.on("connection", socket => {
-  console.log("New client connected");
-  socket.emit("FromAPI", "BUDDY");
-  socket.on("disconnect", () => console.log("Client disconnected"));
+io.sockets.on('connection', function (socket) {
+    console.log('client connected');
+    quizzes.initQuizzes(io, socket);
 });
 
 
