@@ -16,7 +16,7 @@ class NavBar extends Component {
 			alert("you have been logged out TODO redirect");
 		})
 	}
-
+	
 	render() {
 		return (
 			<nav className="navbar navbar-expand-lg navbar-light bg-primarytwo">

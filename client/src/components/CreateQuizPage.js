@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import QuestionInput from './QuestionInput.js';
+import NavBar from './NavBar.js'
+import TextField from 'material-ui/TextField';
 
 class CreateQuizPage extends Component {
 
@@ -12,7 +14,6 @@ class CreateQuizPage extends Component {
 			questions: []
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleInput = this.handleInput.bind(this);
 		this.addQuestion = this.addQuestion.bind(this);
 		this.updateQuestion = this.updateQuestion.bind(this);
 	}
@@ -30,8 +31,10 @@ class CreateQuizPage extends Component {
 		});
 	}
 
-	handleInput(e) {
-		this.setState({[e.target.name]: e.target.value});
+	handleChange = name => event => {
+		this.setState({
+			[name]: event.target.value
+		})
 	}
 
 	addQuestion() {
@@ -55,20 +58,28 @@ class CreateQuizPage extends Component {
 	}
 
 	render() {
-		return (
+		return ([
+			<NavBar/>,
 			<div className="container mt-5">
-				<div className="form-group">
-					<label htmlFor="title">Title: </label>
-					<input type="text" className="form-control" id="tile" name="title"  onChange={this.handleInput}/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="name">Description: </label>
-					<input type="text" className="form-control" id="description" name="description" onChange={this.handleInput}/>
-				</div>
+				<TextField
+					      fullWidth
+					      type="text"
+					      label="Title"
+					      margin="normal"
+					      onChange={this.handleChange('title')}
+				/>
+				<TextField
+					      fullWidth
+					      type="text"
+					      label="Description"
+					      margin="normal"
+					      onChange={this.handleChange('description')}
+				/>
+				
 				<div className="container">
 					{this.renderQuestions()}
 				</div>
-				<div className="row">
+				<div className="row mt-4">
 					<div className="col text-center">
 						<button className="btn btn-primary" onClick={this.addQuestion}>Add Question</button>
 					</div>
@@ -77,7 +88,7 @@ class CreateQuizPage extends Component {
 					<button className="btn btn-primary" onClick={this.handleSubmit}>Create</button>
 				</div>
 			</div>
-		)
+		])
 	}
 }
 
