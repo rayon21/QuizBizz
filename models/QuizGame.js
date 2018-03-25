@@ -71,6 +71,8 @@ function playerPushButton(data) {
     // console.log('Player ID: ' + data.playerId + ' answered a question with: ' + data.answer);
 
     // Emit an event with the answer so it can be checked by the 'Host'
+    console.log("PLAYER PUSHED BUTTON");
+    console.log("Player Name: " + data.playerName + " Room ID: " + data.roomId);
     io.sockets.in(data.roomId).emit('joinQuizQueue', data);
 }
 

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import io from "socket.io-client";
 
 class SocketClient extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       endpoint: "http://localhost:8888",
       playerName: "",
@@ -39,21 +39,22 @@ class SocketClient extends Component {
 
     // Send the gameId and playerName to the server
     var isValid;
+    var r = this;
 
     this.socket.emit('playerJoinGame', data, function(data){
       if(data.valid){
         // show the button linked to the socket
         console.log("VALID");
-        
+        r.props.history.push("/play/" + r.state.roomId + "/@" + r.state.playerName);
 
       } else {
         console.log("NOT VALID");
         isValid = false;
       }
     });
+
     this.setState({validId: isValid});
   }
-  
 
   render() {
     const { validId } = this.state;
