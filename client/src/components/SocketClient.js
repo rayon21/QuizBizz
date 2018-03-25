@@ -11,7 +11,6 @@ class SocketClient extends Component {
       validId: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
 
 // need to do this when the user presses enter on the form 

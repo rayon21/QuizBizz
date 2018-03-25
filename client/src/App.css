@@ -45,7 +45,7 @@ html, body, #root {
 }
 
 .text-white {
-  color: white;
+  color: white !important;
 }
 
 .height-screen {
@@ -100,8 +100,18 @@ nav {
   position: absolute;
 }
 
+.logo-navbar {
+  fill: white;
+  width: 100px;
+}
+
 /* Login */
 .login-container {
   background-color: #5764f9;
   height: 100%;
+}
+
+/* Navbar */
+.bg-primarytwo {
+  background-color: #5869F5;
 }
