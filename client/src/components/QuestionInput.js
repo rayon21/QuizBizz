@@ -25,10 +25,12 @@ class QuestionInput extends Component {
 
 	render() {
 		return (
-			<div className="form-group">
-				<label htmlFor="">{this.props.number}</label>
-				<input className="question" type="text" className="form-control" ref="questionText" onChange={this.handleChange}/>
-				<input className="answer" type="text" className="form-control" ref="answerText" onChange={this.handleChange}/>
+			<div className="d-flex">
+				<span className="big-number">{this.props.number}.</span>
+				<div className="form-group col-md-12">
+					<input className="question" type="text" className="form-control" ref="questionText" onChange={this.handleChange} placeholder="Question"/>
+					<input className="answer" type="text" className="form-control" ref="answerText" onChange={this.handleChange} placeholder="Answer"/>
+				</div>
 			</div>
 		)
 	}

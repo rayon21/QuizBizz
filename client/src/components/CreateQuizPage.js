@@ -61,6 +61,7 @@ class CreateQuizPage extends Component {
 		return ([
 			<NavBar/>,
 			<div className="container mt-5">
+				<h1>New Quiz</h1>
 				<TextField
 					      fullWidth
 					      type="text"

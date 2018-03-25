@@ -6,9 +6,14 @@ class PresenterPage extends Component {
 
 	constructor() {
 		super();
+		this.gameStates = {
+
+		}
 		this.state = {
 			question: '',
 			roomCode: 'ABCD',
+			gameState: '',
+			showAnswer: true,
 			players: ["Jane Doe", "Parmis", "Richarde"]
 		}
 	}
@@ -53,7 +58,8 @@ class PresenterPage extends Component {
 					</div>
 					<div className="col-md-9">
 						<div className="container">
-							<Question question="x^2/34 + x = 43?"/>
+							<Question question="1 + x = 2?"/>
+							<Question question="x = 1"/>
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-center">
 								<button className="btn btn-primary btn-lg">✅</button>
 								<button className="btn btn-primary btn-lg">❌</button>

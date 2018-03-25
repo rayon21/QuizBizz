@@ -48,6 +48,10 @@ html, body, #root {
   color: white !important;
 }
 
+.big-number {
+  font-size: 3em;
+}
+
 .height-screen {
   height: 100%;
 }

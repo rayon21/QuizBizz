@@ -56,7 +56,7 @@ class QuizzesPage extends Component {
 				<div className="d-flex justify-content-end">
 					<Link to="/create"><button className="btn btn-primary">Create new quiz</button></Link>
 				</div>
-				<div className="mt-3">
+				<div className="mt-3 mb-5">
 					{this.renderQuizzes()}
 				</div>
 			</div>

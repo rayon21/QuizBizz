@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
 
@@ -16,7 +17,7 @@ class NavBar extends Component {
 			alert("you have been logged out TODO redirect");
 		})
 	}
-	
+
 	render() {
 		return (
 			<nav className="navbar navbar-expand-lg navbar-light bg-primarytwo">
@@ -30,10 +31,10 @@ class NavBar extends Component {
 			  <div className="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul className="navbar-nav ml-auto">
 			      <li className="nav-item active">
-			        <a className="nav-link text-white" href="/">Home<span className="sr-only">(current)</span></a>
+			        <Link to="/" className="nav-link text-white">Home<span className="sr-only">(current)</span></Link>
 			      </li>
 			      <li className="nav-item">
-			        <a className="nav-link text-white" href="/quizzes">My Quizzes</a>
+			        <Link to="/quizzes"  className="nav-link text-white">My Quizzes</Link>
 			      </li>
 			      <li className="nav-item">
 			        <a className="nav-link text-white" href="/logout" onClick={this.logout}>Logout</a>
