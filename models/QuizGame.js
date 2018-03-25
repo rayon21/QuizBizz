@@ -36,7 +36,7 @@ function createNewQuiz() {
 	this.join(roomID);
 }
 
-function playerJoinGame(data) {
+function playerJoinGame(data,fn) {
     console.log('Player ' + data.playerName + ' attempting to join game: ' + data.roomId );
 
     // A reference to the player's Socket.IO socket object
@@ -57,11 +57,13 @@ function playerJoinGame(data) {
 
         // Emit an event notifying the clients that the player has joined the room.
         io.sockets.in(data.roomId).emit('playerJoinedRoom', data);
+        fn({valid:true});
 
     } else {
         // Otherwise, send an error message back to the player.
         // this.emit('error',{message: "This room does not exist."} );
         console.log("ROOM: " + data.roomId + " DOES NOT EXIST");
+        fn({valid:false});
     }
 }
 

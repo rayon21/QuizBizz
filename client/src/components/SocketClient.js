@@ -7,7 +7,8 @@ class SocketClient extends Component {
     this.state = {
       endpoint: "http://localhost:8888",
       playerName: "",
-      roomId: ""
+      roomId: "",
+      validId: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -27,31 +28,39 @@ class SocketClient extends Component {
   }
 
   handleSubmit(e){
-      const body = e.target.value;
-      console.log(body);
+    e.preventDefault();
+    const body = e.target.value;
+    console.log(body);
 
-      var data = {
-      // needs to be elements from the forms, not random data
-        roomId : this.state.roomId,
-        playerName : this.state.playerName
-      };
+    var data = {
+    // needs to be elements from the forms, not random data
+      roomId : this.state.roomId,
+      playerName : this.state.playerName
+    };
 
-      // Send the gameId and playerName to the server
-      
-      this.socket.emit('playerJoinGame', data);
-      e.target.value = '';
-    }
+    // Send the gameId and playerName to the server
+    var isValid;
+
+    this.socket.emit('playerJoinGame', data, function(data){
+      if(data.valid){
+        // show the button linked to the socket
+        console.log("VALID");
+        
+
+      } else {
+        console.log("NOT VALID");
+        isValid = false;
+      }
+    });
+    this.setState({validId: isValid});
+  }
   
 
   render() {
-    const { response } = this.state;
+    const { validId } = this.state;
+    var errColor = {color:"red"};
     return (
-      <div style={{ textAlign: "center" }}>
-        {response
-          ? <p>
-              Not a Valid room Key: {response} 
-            </p>
-          : <p>Enter Room Key</p>}
+      <div style={{ textAlign: "center" }} className="joinRoomBox">
 
         <div className="container mb-3">
         <div className="col-sm-4 offset-sm-4 border pb-3 pt-4 mb-3">
@@ -65,6 +74,11 @@ class SocketClient extends Component {
             </div>
             <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Enter</button>
           </form>
+          {validId
+            ? <p>(4 character code)</p>
+            : <p style={errColor}>Not Valid</p>
+
+          }
         </div>
       </div>
       </div>
