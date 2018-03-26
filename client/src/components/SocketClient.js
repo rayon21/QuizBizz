@@ -5,7 +5,7 @@ class SocketClient extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      endpoint: "http://localhost:8888",
+      endpoint: '/',
       playerName: "",
       roomId: "",
       validId: true
