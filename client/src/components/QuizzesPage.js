@@ -28,6 +28,7 @@ class QuizzesPage extends Component {
 	renderQuizzes() {
 		return this.state.quizzes.map((quiz) => {
 			const url = "/quiz/" + quiz._id;
+			const roomUrl = "/room/" + quiz._id;
 			return (
 				<div key={quiz._id} className="mb-2">
 			      <Card key={quiz._id}>
@@ -40,7 +41,9 @@ class QuizzesPage extends Component {
 			          <Typography color="textSecondary">
 			            {quiz.description}
 			          </Typography>
-			          	<button className="btn btn-primary mt-3">start</button>
+			          	<Link to={`/room/${quiz._id}`}>
+			          		<button className="btn btn-primary mt-3">start</button>
+			          	</Link>
 			        </CardContent>
 			      </Card>
     			</div>

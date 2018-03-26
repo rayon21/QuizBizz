@@ -139,3 +139,30 @@ nav {
 .question-container h1 {
   font-size: 3em;
 }
+
+/* Room code container */
+
+.room-code-bg {
+  background-color: #5764f9;
+  height: 100%;
+}
+
+.room-code-container {
+  background-color: #FFF;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.00);
+  border-radius: 13px;
+}
+
+@keyframes example {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+.example-appear {
+  transform: rotateX(0deg);
+}
+
+.example-appear.example-appear-active {
+  animation-name: example;
+    animation-duration: 4s;
+
+}

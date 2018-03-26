@@ -1,26 +1,41 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.js';
 import Question from './Game/Question.js';
+import io from "socket.io-client";
 
 class PresenterPage extends Component {
 
 	constructor() {
 		super();
-		this.gameStates = {
-
-		}
 		this.state = {
 			question: '',
-			roomCode: 'ABCD',
+			roomId: 'ABCD',
 			gameState: '',
 			showAnswer: true,
-			players: ["Jane Doe", "Parmis", "Richarde"]
+			players: [],
+			endpoint: "/",
+		    mySocketId: ""
 		}
 	}
 
-	didComponentMount() {
+	  componentDidMount() {
+	    const { endpoint } = this.state;
+	    this.socket = io(endpoint);
+	    var r = this;
 
-	}
+	    this.socket.emit('createNewQuiz');
+	    this.socket.on('quizCreated', function(data){
+	        console.log(data.roomId + " " + data.mySocketId);
+	        r.setState({ 
+	          roomId: data.roomId,
+	          mySocketId: data.mySocketId
+	        });
+	      });
+	    this.socket.on('playerJoinedRoom', function(data){
+	      console.log(data.playerName);
+	      r.setState({ players: [data.playerName, ...r.state.players] });
+	    });
+	  }
 
 	renderPlayerList() {
 		return (
@@ -43,7 +58,7 @@ class PresenterPage extends Component {
 					<div className="col-md-3">
 						<div className="card">
 							<div className="card-body">
-								<h5 className="">ROOM CODE: <b>{this.state.roomCode}</b></h5>
+								<h5 className="">ROOM CODE: <b>{this.state.roomId}</b></h5>
 							</div>
 						</div>
 						<div className="controls">
@@ -58,7 +73,7 @@ class PresenterPage extends Component {
 					</div>
 					<div className="col-md-9">
 						<div className="container">
-							<Question question="1 + x = 2?"/>
+      						<Question question="fuck fucking fuck?" key="x"/>
 							<Question question="x = 1"/>
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-center">
 								<button className="btn btn-primary btn-lg">✅</button>
