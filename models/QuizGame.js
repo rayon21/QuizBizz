@@ -14,7 +14,7 @@ var codeArr = ["bitch"];
  exports.initQuizzes = function(sio, socket){
     io = sio;
     gameSocket = socket;
-    gameSocket.emit('connected', { message: "You are connected!" });
+    gameSocket.emit('connected', {message: "You are connected!" });
 
     // Host Events
     gameSocket.on('createNewQuiz', createNewQuiz);
@@ -32,7 +32,7 @@ function createNewQuiz() {
 	codeArr.push(roomID);
 	console.log("room created " + roomID);
 
-	this.emit('quizCreated', {roomID: roomID, mySocketId: this.id});
+	this.emit('quizCreated', {roomId: roomID, mySocketId: this.id});
 	this.join(roomID);
 }
 

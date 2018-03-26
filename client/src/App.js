@@ -9,6 +9,8 @@ import CreateQuizPage                   from './components/CreateQuizPage';
 import SocketClient                     from './components/SocketClient';
 import PresenterPage                    from './components/PresenterPage';
 import PlayerRoom                       from './components/PlayerRoom';
+import ParticipantsBox                  from './components/ParticipantsBox';
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -26,6 +28,7 @@ class App extends Component {
           <Route path="/join" component={SocketClient}/>
           <Route path="/room/:id" component={PresenterPage}/>
           <Route path="/play/:id" component={PlayerRoom}/>
+          <Route path="/box" component={ParticipantsBox}/>
         </Switch>
       </BrowserRouter>
     );
