@@ -55,6 +55,13 @@ html, body, #root {
 .height-screen {
   height: 100%;
 }
+
+.error-text {
+  font-size: 0.75rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #f44336;
+}
+
 /* Registration */
 
 .reg-container {

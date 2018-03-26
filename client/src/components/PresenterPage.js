@@ -26,7 +26,7 @@ class PresenterPage extends Component {
 		return (
 			this.state.players.map((player, index) => {
 				return (
-					<li className="list-group-item justify-content-between" key={index}>
+					<li className="list-group-item justify-content-between d-flex" key={index}>
 						{player}
 						<span className="badge badge-default badge-pill">12</span>
 					</li>

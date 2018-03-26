@@ -8,7 +8,8 @@ class LoginBox extends Component {
 		super(props);
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			error: false
 		}
 		this.register = this.register.bind(this);
 	}
@@ -33,7 +34,11 @@ class LoginBox extends Component {
 			if (res.status == 200) {
 				this.saveToken(res.headers['x-auth']);
 				this.props.history.push("/quizzes/");
+			} else {
+				this.setState({error: true});
 			}
+		}).catch((e) => {
+			this.setState({error: true});
 		});
 	}
 
@@ -46,6 +51,7 @@ class LoginBox extends Component {
 			<div className="container mb-3 mt-5">
 				<div className="col-sm-4 offset-sm-4 border pb-3 pt-4 mb-3 reg-container">
 					<h3>Login</h3>
+					{this.state.error ? <span className="error-text d-block text-center">Email or password is invalid</span> : undefined}
 					<form action="" className="mb-3">
 						<TextField
 					      fullWidth
@@ -61,7 +67,7 @@ class LoginBox extends Component {
 					      margin="normal"
 					      onChange={this.handleChange('password')}
 					    />
-						<button type="submit" className="btn btn-primary mt-4" onClick={this.register}>Login</button>
+						<button type="submit" className="btn btn-primary mt-2" onClick={this.register}>Login</button>
 					</form>
 				</div>
 			</div>
