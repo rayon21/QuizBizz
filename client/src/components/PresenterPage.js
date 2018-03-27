@@ -18,6 +18,7 @@ class PresenterPage extends Component {
 		    mySocketId: "",
 		    quiz: {},
 		    currentQuestion: '',
+		    currentAnswer: '',
 		    currentQuestionNumber: 1
 		};
 		this.handleEnableBuzzer = this.handleEnableBuzzer.bind(this);
@@ -47,9 +48,9 @@ class PresenterPage extends Component {
 				"x-auth": token
 			}
 		}).then((res) => {
-			console.log(res.data);
+			const firstQuestion = res.data.quiz.questions[0];
 			this.setState({quiz: res.data.quiz});
-			this.setState({currentQuestion: res.data.quiz.questions[0].question});
+			this.setState({currentQuestion: firstQuestion.question, currentAnswer: firstQuestion.answer});
 		});
 	  }
 
@@ -58,9 +59,11 @@ class PresenterPage extends Component {
 		if (this.state.quiz && this.state.currentQuestionNumber >= this.state.quiz.questions.length) {
 			return false;
 		}
+
 		this.setState({
 			currentQuestionNumber: this.state.currentQuestionNumber + 1,
-			currentQuestion: this.state.quiz.questions[this.state.currentQuestionNumber].question
+			currentQuestion: this.state.quiz.questions[this.state.currentQuestionNumber].question,
+			currentAnswer: this.state.quiz.questions[this.state.currentQuestionNumber].answer
 		});
 		return true;
 
@@ -119,9 +122,9 @@ class PresenterPage extends Component {
 					<div className="col-md-9">
 						<div className="container">
       						<Question question={this.state.currentQuestion} key="x"/>
-							<Question question="x = 1"/>
+							<Question question={this.state.currentAnswer}/>
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-center">
-								<button className="btn btn-primary btn-lg">✅</button>
+								<button className="btn btn-primary btn-lg" onClick={this.nextQuestion}>✅</button>
 								<button className="btn btn-primary btn-lg">❌</button>
 							</div>
 						</div>

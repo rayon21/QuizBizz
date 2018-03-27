@@ -7,8 +7,8 @@ import NavBar from './NavBar.js'
 
 class QuizzesPage extends Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			quizzes: []
 		}
@@ -28,7 +28,6 @@ class QuizzesPage extends Component {
 	renderQuizzes() {
 		return this.state.quizzes.map((quiz) => {
 			const url = "/quiz/" + quiz._id;
-			const roomUrl = "/room/" + quiz._id;
 			return (
 				<div key={quiz._id} className="mb-2">
 			      <Card key={quiz._id}>

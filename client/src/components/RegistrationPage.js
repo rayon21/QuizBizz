@@ -5,7 +5,7 @@ import Header from './Header.js';
 class RegistrationPage extends Component {
 	render() {
 		return (
-			<div class="height-screen">
+			<div className="height-screen">
 				<Header/>
 				<div className="height-screen">
 					<div className="row height-screen">
