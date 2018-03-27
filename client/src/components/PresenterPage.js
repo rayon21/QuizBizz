@@ -14,6 +14,7 @@ class PresenterPage extends Component {
 			gameState: '',
 			showAnswer: true,
 			players: [],
+			answerQueue: [],
 			endpoint: "/",
 		    mySocketId: "",
 		    quiz: {},
@@ -38,8 +39,20 @@ class PresenterPage extends Component {
 	        });
 	      });
 	    this.socket.on('playerJoinedRoom', function(data){
-	      console.log(data.playerName);
-	      r.setState({ players: [data.playerName, ...r.state.players] });
+	      //console.log(data.playerName);
+	      r.setState({ players: [
+	      	{
+	      		playerName: data.playerName,
+	      		points: 0
+	      	},
+
+	      	...r.state.players] });
+	    });
+	    //when someone clicks the button
+	    this.socket.on('joinQuizQueue',function(data){
+	    	console.log("PUSHED BUTTON: " + data.playerName);
+	    	r.setState({ answerQueue: r.state.answerQueue.concat([data.playerName])});
+
 	    });
 
 	    const token = localStorage.getItem('token');
@@ -56,23 +69,46 @@ class PresenterPage extends Component {
 
 	//updates the current question to the next, returns true if it can, false if not
 	nextQuestion = () => {
+
+	    // add points to first element in the list
+	    if(this.state.answerQueue.length > 0){
+			var index = this.state.players.map(function(e) { return e.playerName;}).indexOf(this.state.answerQueue[0]);
+			this.state.players[index].points += 1;
+	    }
+
 		if (this.state.quiz && this.state.currentQuestionNumber >= this.state.quiz.questions.length) {
+
+			this.setState({
+				answerQueue: [],
+				players: this.state.players				
+			});
+
+			// should update mongo DB Participants
+			// should load page of winners in table 
+			
 			return false;
 		}
 
 		this.setState({
 			currentQuestionNumber: this.state.currentQuestionNumber + 1,
 			currentQuestion: this.state.quiz.questions[this.state.currentQuestionNumber].question,
-			currentAnswer: this.state.quiz.questions[this.state.currentQuestionNumber].answer
+			currentAnswer: this.state.quiz.questions[this.state.currentQuestionNumber].answer,
+			answerQueue: [],
+			players: this.state.players
 		});
 		return true;
 
-	    //when someone clicks the button
-	    this.socket.on('joinQuizQueue',function(data){
-	    	console.log(data.playerName);
-	    });
 	    // this.socket.emit('enableBuzzer', r.state.roomId);
 	  }
+	 nextPlayer = () => {
+	 	if(this.state.answerQueue.length > 0){
+			this.state.answerQueue.splice(0,1);
+		    this.setState({
+			  answerQueue: this.state.answerQueue
+			});
+	 	}
+
+	 }
 
 	handleEnableBuzzer(e){
 		e.preventDefault();
@@ -85,11 +121,21 @@ class PresenterPage extends Component {
 			this.state.players.map((player, index) => {
 				return (
 					<li className="list-group-item justify-content-between d-flex" key={index}>
-						{player}
-						<span className="badge badge-default badge-pill">12</span>
+						{player.playerName}
+						<span className="badge badge-default badge-pill">
+						{player.points}
+						</span>
 					</li>
 				)
 			})
+		)
+	}
+
+	renderAnswerQueue(){
+		return(
+			this.state.answerQueue.map(function(player, index){
+		      return <li key={index}><b>{player}</b></li>
+		    })
 		)
 	}
 
@@ -123,9 +169,10 @@ class PresenterPage extends Component {
 						<div className="container">
       						<Question question={this.state.currentQuestion} key="x"/>
 							<Question question={this.state.currentAnswer}/>
+							{this.renderAnswerQueue()}
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-center">
 								<button className="btn btn-primary btn-lg" onClick={this.nextQuestion}>✅</button>
-								<button className="btn btn-primary btn-lg">❌</button>
+								<button className="btn btn-primary btn-lg" onClick={this.nextPlayer}>❌</button>
 							</div>
 						</div>
 					</div>
