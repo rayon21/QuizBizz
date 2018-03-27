@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from './NavBar.js';
 import Question from './Game/Question.js';
 import io from "socket.io-client";
+import axios from 'axios';
 
 class PresenterPage extends Component {
 
@@ -9,12 +10,15 @@ class PresenterPage extends Component {
 		super();
 		this.state = {
 			question: '',
-			roomId: 'ABCD',
+			roomId: '',
 			gameState: '',
 			showAnswer: true,
 			players: [],
 			endpoint: "/",
-		    mySocketId: ""
+		    mySocketId: "",
+		    quiz: {},
+		    currentQuestion: '',
+		    currentQuestionNumber: 1
 		}
 	}
 
@@ -35,7 +39,30 @@ class PresenterPage extends Component {
 	      console.log(data.playerName);
 	      r.setState({ players: [data.playerName, ...r.state.players] });
 	    });
+
+	    const token = localStorage.getItem('token');
+		axios.get('/api/quizzes/' + window.location.pathname.split("/")[2], {
+			headers: {
+				"x-auth": token
+			}
+		}).then((res) => {
+			console.log(res.data);
+			this.setState({quiz: res.data.quiz});
+			this.setState({currentQuestion: res.data.quiz.questions[0].question});
+		});
 	  }
+
+	//updates the current question to the next, returns true if it can, false if not
+	nextQuestion = () => {
+		if (this.state.quiz && this.state.currentQuestionNumber >= this.state.quiz.questions.length) {
+			return false;
+		}
+		this.setState({
+			currentQuestionNumber: this.state.currentQuestionNumber + 1,
+			currentQuestion: this.state.quiz.questions[this.state.currentQuestionNumber].question
+		});
+		return true;
+	}
 
 	renderPlayerList() {
 		return (
@@ -50,6 +77,8 @@ class PresenterPage extends Component {
 		)
 	}
 
+
+
 	render() {
 		return ([
 			<NavBar/>,
@@ -62,18 +91,19 @@ class PresenterPage extends Component {
 							</div>
 						</div>
 						<div className="controls">
-							<button className="btn btn-primary mt-3 col-md-12">Enable Buzzing</button>
+							<button className="btn btn-primary mt-3 col-md-12" onClick={this.nextQuestion}>Enable Buzzing</button>
 						</div>
 						<div className="players-list mt-4">
 							<h3 className="mb-3">Players</h3>
 							<ul className="list-group">
+							  {this.state.players.length == 0 ? (<span className='grey-text'>There are currently no players</span>) : undefined}
 							  {this.renderPlayerList()}
 							</ul>
 						</div>
 					</div>
 					<div className="col-md-9">
 						<div className="container">
-      						<Question question="fuck fucking fuck?" key="x"/>
+      						<Question question={this.state.currentQuestion} key="x"/>
 							<Question question="x = 1"/>
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-center">
 								<button className="btn btn-primary btn-lg">✅</button>

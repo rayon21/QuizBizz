@@ -5,10 +5,10 @@ import Header from './Header.js';
 class RegistrationPage extends Component {
 	render() {
 		return (
-			<div>
+			<div class="height-screen">
 				<Header/>
-				<div className="">
-					<div className="row">
+				<div className="height-screen">
+					<div className="row height-screen">
 						<div className="col-md-7 info-section"></div>
 						<div className="col-md-5 reg-section pt-5">
 							<RegistrationBox history={this.props.history}/>

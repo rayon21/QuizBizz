@@ -62,6 +62,11 @@ html, body, #root {
   color: #f44336;
 }
 
+.grey-text {
+  font-size: 0.75rem;
+  color: #777;
+}
+
 /* Registration */
 
 .reg-container {
@@ -91,7 +96,6 @@ html, body, #root {
 
 .info-section {
   background-color: #5764f9;
-  height: 700px;
 }
 
 /* Navagation */
