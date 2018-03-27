@@ -22,6 +22,8 @@ var codeArr = ["bitch"];
     // Player Events
     gameSocket.on('playerJoinGame', playerJoinGame);
     gameSocket.on('playerPushButton', playerPushButton);
+    gameSocket.on('enableBuzzer', hostEnableBuzzer);
+    gameSocket.on('checkRoomId', checkRoomId);
 
 }
 
@@ -57,7 +59,7 @@ function playerJoinGame(data,fn) {
 
         // Emit an event notifying the clients that the player has joined the room.
         io.sockets.in(data.roomId).emit('playerJoinedRoom', data);
-        fn({valid:true});
+        //fn({valid:true});
 
     } else {
         // Otherwise, send an error message back to the player.
@@ -74,6 +76,21 @@ function playerPushButton(data) {
     console.log("PLAYER PUSHED BUTTON");
     console.log("Player Name: " + data.playerName + " Room ID: " + data.roomId);
     io.sockets.in(data.roomId).emit('joinQuizQueue', data);
+}
+
+function hostEnableBuzzer (roomId){
+    console.log("ENABLE BUZZER: " + roomId);
+    io.sockets.in(roomId).emit('playerEnableBuzzer', "true");
+}
+
+function checkRoomId(data, fn){
+    if(codeArr.includes(data.roomId)){
+
+        fn({valid:true});
+    }else{
+        fn({valid:false});
+    }
+
 }
 
 

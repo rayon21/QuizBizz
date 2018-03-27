@@ -15,7 +15,9 @@ class PresenterPage extends Component {
 			players: [],
 			endpoint: "/",
 		    mySocketId: ""
-		}
+		};
+		this.handleEnableBuzzer = this.handleEnableBuzzer.bind(this);
+
 	}
 
 	  componentDidMount() {
@@ -35,7 +37,19 @@ class PresenterPage extends Component {
 	      console.log(data.playerName);
 	      r.setState({ players: [data.playerName, ...r.state.players] });
 	    });
+
+	    //when someone clicks the button
+	    this.socket.on('joinQuizQueue',function(data){
+	    	console.log(data.playerName);
+	    });
+	    // this.socket.emit('enableBuzzer', r.state.roomId);
 	  }
+
+	handleEnableBuzzer(e){
+		e.preventDefault();
+		var r = this;
+	    this.socket.emit('enableBuzzer', r.state.roomId);
+	}
 
 	renderPlayerList() {
 		return (
@@ -62,7 +76,10 @@ class PresenterPage extends Component {
 							</div>
 						</div>
 						<div className="controls">
-							<button className="btn btn-primary mt-3 col-md-12">Enable Buzzing</button>
+							<button className="btn btn-primary mt-3 col-md-12" 
+								onClick={this.handleEnableBuzzer} >Enable Buzzing
+							</button>
+
 						</div>
 						<div className="players-list mt-4">
 							<h3 className="mb-3">Players</h3>

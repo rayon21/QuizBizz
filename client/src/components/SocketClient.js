@@ -41,10 +41,10 @@ class SocketClient extends Component {
     var isValid;
     var r = this;
 
-    this.socket.emit('playerJoinGame', data, function(data){
+    this.socket.emit('checkRoomId', data, function(data){
       if(data.valid){
         // show the button linked to the socket
-        console.log("VALID");
+        // console.log("VALID");
         r.props.history.push("/play/" + r.state.roomId + "/@" + r.state.playerName);
 
       } else {
