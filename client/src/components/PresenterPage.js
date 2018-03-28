@@ -84,7 +84,23 @@ class PresenterPage extends Component {
 			});
 
 			// should update mongo DB Participants
-			// should load page of winners in table 
+			// should load page of winners in table
+
+			var r = this;
+		    const token = localStorage.getItem('token');
+		    console.log("QUIZ ENDED, MONGO UPDATED");
+			console.log(token);
+			axios.patch('/api/quizzes/' + window.location.pathname.split("/")[2],
+			 {
+			 	participants: this.state.players
+			 },
+			 {
+				headers: {
+					"x-auth": token
+				}
+			}).then((res) => {
+				console.log(res);
+			});
 			
 			return false;
 		}
@@ -108,6 +124,10 @@ class PresenterPage extends Component {
 			});
 	 	}
 
+	 }
+
+	 showAnswer = () => {
+	 	
 	 }
 
 	handleEnableBuzzer(e){
@@ -138,7 +158,6 @@ class PresenterPage extends Component {
 		    })
 		)
 	}
-
 
 
 	render() {
@@ -173,6 +192,7 @@ class PresenterPage extends Component {
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-center">
 								<button className="btn btn-primary btn-lg" onClick={this.nextQuestion}>✅</button>
 								<button className="btn btn-primary btn-lg" onClick={this.nextPlayer}>❌</button>
+								<button className="btn btn-primary btn-lg" onClick={this.showAnswer}>Answer</button>
 							</div>
 						</div>
 					</div>
