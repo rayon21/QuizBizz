@@ -4,7 +4,6 @@ String.prototype.replaceAt=function(index, replacement) {
 
 
 var randomCode = () => {
-    
     var code = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (var i = 0; i < 4; i++){ 
