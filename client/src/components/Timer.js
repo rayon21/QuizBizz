@@ -5,7 +5,7 @@ class Timer extends Component {
     constructor() {
         super();
         this.state = { 
-            seconds: 2 
+            seconds: 5 
         };
         this.timer = -1;
         this.startTimer = this.startTimer.bind(this);
@@ -36,10 +36,12 @@ class Timer extends Component {
     
     render() {
         return(
-            <div>
-                {this.state.seconds} seconds left 
-                <button onClick={this.startTimer}>Start</button>
-                <audio id="audio" ><source src="http://www.orangefreesounds.com/wp-content/uploads/2014/08/Wrong-answer-sound-effect.mp3?_=1" type="audio/mpeg" /></audio>
+            <div className="container">
+                {this.startTimer()}
+                <div className="vertical-center text-center text-danger display-1 "> 
+                    {this.state.seconds} 
+                    <audio id="audio" ><source src="http://www.orangefreesounds.com/wp-content/uploads/2014/08/Wrong-answer-sound-effect.mp3?_=1" type="audio/mpeg" /></audio>
+                </div>
             </div>
         );
     }
