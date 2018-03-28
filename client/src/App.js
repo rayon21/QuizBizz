@@ -1,5 +1,6 @@
 import React, { Component }             from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import Header                           from './components/Header.js';
 import RegistrationPage                 from './components/RegistrationPage.js';
 import LoginPage                        from './components/LoginPage.js';
@@ -10,8 +11,7 @@ import SocketClient                     from './components/SocketClient';
 import PresenterPage                    from './components/PresenterPage';
 import PlayerRoom                       from './components/PlayerRoom';
 import ParticipantsBox                  from './components/ParticipantsBox';
-
-
+import Timer                            from './components/Timer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -27,6 +27,7 @@ class App extends Component {
           <Route path="/create" component={CreateQuizPage}/>
           <Route path="/join" component={SocketClient}/>
           <Route path="/room/:id" component={PresenterPage}/>
+          <Route path="/timer" component={Timer}/>
           <Route path="/play/:id" component={PlayerRoom}/>
           <Route path="/box" component={ParticipantsBox}/>
         </Switch>
