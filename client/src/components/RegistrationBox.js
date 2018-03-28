@@ -52,7 +52,10 @@ class RegistrationBox extends Component {
 			this.setState({loading: false});
 			this.props.history.push("/quizzes");
 			//TODO login user
-		}).catch((e) => console.log(e));
+		}).catch((e) => {
+			this.setState({error: true});
+			this.setState({loading: false});
+		});
 	}
 
 	validatePassword = (e) => {
@@ -74,6 +77,7 @@ class RegistrationBox extends Component {
 		return (
 			<div className="d-flex pr-5 pl-5 flex-column">
 				<div className="col-sm-12 pb-3 pt-4 mb-4 reg-container">
+				{this.state.error ? <span className="error-text d-block text-center">The email has already been used.</span> : undefined}
 					<h4 className="mt-4 mb-2">Join with your email</h4>
 					<form action="" className="">
 						<TextField
@@ -100,7 +104,7 @@ class RegistrationBox extends Component {
 					    	<button className="btn btn-primary mt-4 mb-3 d-flex align-items-center reg-button" onClick={this.register}>
 					    		{ this.state.loading ?
 					    			<CircularProgress size={24} className="loading" color="white"/> :
-					    			"register"
+					    			"Register"
 					    		}
 					    	</button>
 					    </div>
