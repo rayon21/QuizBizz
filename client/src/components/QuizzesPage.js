@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Card, { CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
+import NavBar from './NavBar.js'
 
 class QuizzesPage extends Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			quizzes: []
 		}
@@ -26,28 +29,40 @@ class QuizzesPage extends Component {
 		return this.state.quizzes.map((quiz) => {
 			const url = "/quiz/" + quiz._id;
 			return (
-				<div className="card" key={quiz._id}>
-					<Link to={url}>
-						<div className="card-body">
-							<h5 className="card-title">{quiz.title}</h5>
-							<p>{quiz.description}</p>
-						</div>
-					</Link>
-				</div>
+				<div key={quiz._id} className="mb-2">
+			      <Card key={quiz._id}>
+			        <CardContent key={quiz._id}>
+			          <Link to={url}>
+				          <Typography variant="headline" component="h2">
+				            {quiz.title}
+				          </Typography>
+				      </Link>
+			          <Typography color="textSecondary">
+			            {quiz.description}
+			          </Typography>
+			          	<Link to={`/room/${quiz._id}`}>
+			          		<button className="btn btn-primary mt-3">start</button>
+			          	</Link>
+			        </CardContent>
+			      </Card>
+    			</div>
 			)
 		});
 	}
 
 	render() {
-		return (
-			<div className="container">
-				<h1>Quizzes</h1>
-				<Link to="/create"><button className="btn btn-primary">New</button></Link>
-				<div className="container col-sm-3">
+		return [
+			<NavBar/>,
+			<div className="container mt-5">
+				<h1>My Quizzes</h1>
+				<div className="d-flex justify-content-end">
+					<Link to="/create"><button className="btn btn-primary">Create new quiz</button></Link>
+				</div>
+				<div className="mt-3 mb-5">
 					{this.renderQuizzes()}
 				</div>
 			</div>
-		)
+		];
 	}
 }
 

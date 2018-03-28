@@ -1,23 +1,184 @@
 import React, { Component } from 'react';
+import NavBar from './NavBar.js';
+import Question from './Game/Question.js';
+import io from "socket.io-client";
+import axios from 'axios';
 
 class PresenterPage extends Component {
-	render() {
+
+	constructor() {
+		super();
+		this.state = {
+			question: '',
+			roomId: '',
+			gameState: '',
+			showAnswer: true,
+			players: [],
+			answerQueue: [],
+			endpoint: "/",
+		    mySocketId: "",
+		    quiz: {},
+		    currentQuestion: '',
+		    currentAnswer: '',
+		    currentQuestionNumber: 1
+		};
+		this.handleEnableBuzzer = this.handleEnableBuzzer.bind(this);
+	}
+
+	  componentDidMount() {
+	    const { endpoint } = this.state;
+	    this.socket = io(endpoint);
+	    var r = this;
+
+	    this.socket.emit('createNewQuiz');
+	    this.socket.on('quizCreated', function(data){
+	        console.log(data.roomId + " " + data.mySocketId);
+	        r.setState({ 
+	          roomId: data.roomId,
+	          mySocketId: data.mySocketId
+	        });
+	      });
+	    this.socket.on('playerJoinedRoom', function(data){
+	      //console.log(data.playerName);
+	      r.setState({ players: [
+	      	{
+	      		playerName: data.playerName,
+	      		points: 0
+	      	},
+
+	      	...r.state.players] });
+	    });
+	    //when someone clicks the button
+	    this.socket.on('joinQuizQueue',function(data){
+	    	console.log("PUSHED BUTTON: " + data.playerName);
+	    	r.setState({ answerQueue: r.state.answerQueue.concat([data.playerName])});
+
+	    });
+
+	    const token = localStorage.getItem('token');
+		axios.get('/api/quizzes/' + window.location.pathname.split("/")[2], {
+			headers: {
+				"x-auth": token
+			}
+		}).then((res) => {
+			const firstQuestion = res.data.quiz.questions[0];
+			this.setState({quiz: res.data.quiz});
+			this.setState({currentQuestion: firstQuestion.question, currentAnswer: firstQuestion.answer});
+		});
+	  }
+
+	//updates the current question to the next, returns true if it can, false if not
+	nextQuestion = () => {
+
+	    // add points to first element in the list
+	    if(this.state.answerQueue.length > 0){
+			var index = this.state.players.map(function(e) { return e.playerName;}).indexOf(this.state.answerQueue[0]);
+			this.state.players[index].points += 1;
+	    }
+
+		if (this.state.quiz && this.state.currentQuestionNumber >= this.state.quiz.questions.length) {
+
+			this.setState({
+				answerQueue: [],
+				players: this.state.players				
+			});
+
+			// should update mongo DB Participants
+			// should load page of winners in table 
+			
+			return false;
+		}
+
+		this.setState({
+			currentQuestionNumber: this.state.currentQuestionNumber + 1,
+			currentQuestion: this.state.quiz.questions[this.state.currentQuestionNumber].question,
+			currentAnswer: this.state.quiz.questions[this.state.currentQuestionNumber].answer,
+			answerQueue: [],
+			players: this.state.players
+		});
+		return true;
+
+	    // this.socket.emit('enableBuzzer', r.state.roomId);
+	  }
+	 nextPlayer = () => {
+	 	if(this.state.answerQueue.length > 0){
+			this.state.answerQueue.splice(0,1);
+		    this.setState({
+			  answerQueue: this.state.answerQueue
+			});
+	 	}
+
+	 }
+
+	handleEnableBuzzer(e){
+		e.preventDefault();
+		var r = this;
+	    this.socket.emit('enableBuzzer', r.state.roomId);
+	}
+
+	renderPlayerList() {
 		return (
+			this.state.players.map((player, index) => {
+				return (
+					<li className="list-group-item justify-content-between d-flex" key={index}>
+						{player.playerName}
+						<span className="badge badge-default badge-pill">
+						{player.points}
+						</span>
+					</li>
+				)
+			})
+		)
+	}
+
+	renderAnswerQueue(){
+		return(
+			this.state.answerQueue.map(function(player, index){
+		      return <li key={index}><b>{player}</b></li>
+		    })
+		)
+	}
+
+
+
+	render() {
+		return ([
+			<NavBar/>,
 			<div className="container">
-				<div className="card">
-					<div className="card-body">
-						<h5 className="card-title">ROOM CODE: DCDK</h5>
+				<div className="row mt-5">
+					<div className="col-md-3">
+						<div className="card">
+							<div className="card-body">
+								<h5 className="">ROOM CODE: <b>{this.state.roomId}</b></h5>
+							</div>
+						</div>
+						<div className="controls">
+							<button className="btn btn-primary mt-3 col-md-12" 
+								onClick={this.handleEnableBuzzer} >Enable Buzzing
+							</button>
+						</div>
+						<div className="players-list mt-4">
+							<h3 className="mb-3">Players</h3>
+							<ul className="list-group">
+							  {this.state.players.length == 0 ? (<span className='grey-text'>There are currently no players</span>) : undefined}
+							  {this.renderPlayerList()}
+							</ul>
+						</div>
+					</div>
+					<div className="col-md-9">
+						<div className="container">
+      						<Question question={this.state.currentQuestion} key="x"/>
+							<Question question={this.state.currentAnswer}/>
+							{this.renderAnswerQueue()}
+							<div className="right-wrong-buttons mt-4 d-flex justify-content-center">
+								<button className="btn btn-primary btn-lg" onClick={this.nextQuestion}>✅</button>
+								<button className="btn btn-primary btn-lg" onClick={this.nextPlayer}>❌</button>
+							</div>
+						</div>
 					</div>
 				</div>
-
-				<ul class="list-group">
-				  <li class="list-group-item">Jane Doe</li>
-				  <li class="list-group-item">Parmis</li>
-				  <li class="list-group-item">Richard</li>
-				</ul>
-				<button className="btn btn-primary mt-3">Start</button>
 			</div>
-		)
+		])
 	}
 }
 

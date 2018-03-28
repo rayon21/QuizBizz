@@ -156,6 +156,8 @@ app.patch('api/quizzes/:id', authenticate, (req, res) => {
   })
 });
 
+
+
 //*****  ROOM API *****//
 
 
@@ -188,6 +190,25 @@ app.patch('api/quizzes/:id', authenticate, (req, res) => {
 // });
 
 
-app.listen(port, () => {
+var server = app.listen(port, () => {
   console.log(`Started up at port ${port}`);
 });
+
+var quizzes = require('./models/QuizGame');
+
+// SOCKET
+
+
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function (socket) {
+    console.log('client connected');
+    quizzes.initQuizzes(io, socket);
+});
+
+
+
+
+
+
+
+
