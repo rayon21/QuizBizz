@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.js'
 import axios from 'axios';
+import Card, { CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 
 class QuizPage extends Component {
 
@@ -23,6 +25,28 @@ class QuizPage extends Component {
 		});
 	}
 
+	renderQuestions = () => {
+		if (!this.state.quiz.questions) {
+			return undefined;
+		}
+		return (this.state.quiz.questions.map((question, index) => {
+			return (
+				<div key={index} className="mb-2 col-md-12">
+			      <Card>
+			        <CardContent>
+			          <Typography variant="headline" component="h2">
+			            {`${index + 1}. ${question.question}`}
+			          </Typography>
+			          <Typography color="textSecondary">
+			            {question.answer}
+			          </Typography>
+			        </CardContent>
+			      </Card>
+    			</div>
+			)
+		}));
+	}
+
 	render() {
 
 		const {title, description} = this.state.quiz;
@@ -35,6 +59,9 @@ class QuizPage extends Component {
 					<div className="col">
 						<button className="btn btn-primary">Play Now</button>
 					</div>
+				</div>
+				<div className="row mt-4">
+					{this.renderQuestions()}
 				</div>
 			</div>
 		])
