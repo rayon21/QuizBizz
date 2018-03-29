@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
-import { GoogleLogin } from 'react-google-login';
+//import { GoogleLogin } from 'react-google-login';
 
 var validator = require('validator');
 

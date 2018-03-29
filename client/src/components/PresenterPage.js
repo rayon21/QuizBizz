@@ -66,16 +66,9 @@ class PresenterPage extends Component {
 			this.setState({currentQuestion: firstQuestion.question, currentAnswer: firstQuestion.answer});
 		});
 	  }
-
+	
 	//updates the current question to the next, returns true if it can, false if not
 	nextQuestion = () => {
-
-	    // add points to first element in the list
-	    if(this.state.answerQueue.length > 0){
-			var index = this.state.players.map(function(e) { return e.playerName;}).indexOf(this.state.answerQueue[0]);
-			this.state.players[index].points += 1;
-	    }
-
 		if (this.state.quiz && this.state.currentQuestionNumber >= this.state.quiz.questions.length) {
 
 			this.setState({
@@ -116,26 +109,33 @@ class PresenterPage extends Component {
 
 	    // this.socket.emit('enableBuzzer', r.state.roomId);
 	  }
-	 nextPlayer = () => {
+	  
+	nextPlayer = () => {
 	 	if(this.state.answerQueue.length > 0){
 			this.state.answerQueue.splice(0,1);
 		    this.setState({
 			  answerQueue: this.state.answerQueue
 			});
 	 	}
-
 	 }
 
-	 showAnswer = () => {
+	showAnswer = () => {
 	 	this.setState({showAnswer: true})
-	 }
-	 hideAnswer = () => {
-	 	this.setState({showAnswer: false})
-	 }
+	}
 
-	 skipQuestion = () => {
-	 	//TODO
-	 }
+	hideAnswer = () => {
+	 	this.setState({showAnswer: false})
+	}
+
+	correctAnswer = () => {
+	    // add points to first element in the list
+	    if(this.state.answerQueue.length > 0){
+			var index = this.state.players.map(function(e) { return e.playerName;}).indexOf(this.state.answerQueue[0]);
+			//this.state.players[index].points += 1;
+		} 
+		
+		this.nextQuestion();
+	}
 
 	handleEnableBuzzer(e){
 		e.preventDefault();
@@ -197,10 +197,10 @@ class PresenterPage extends Component {
       						{this.state.showAnswer ? <Question question={this.state.currentAnswer}/> : undefined}
 							{this.renderAnswerQueue()}
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-between">
-								<button className="btn btn-primary btn-lg col mr-4" onClick={this.nextQuestion}>✅</button>
+								<button className="btn btn-primary btn-lg col mr-4" onClick={this.correctAnswer}>✅</button>
 								<button className="btn btn-primary btn-lg col mr-4" onClick={this.nextPlayer}>❌</button>
-								<button className="btn btn-primary btn-lg col mr-4" onClick={this.showAnswer}>show answer</button>
-								<button className="btn btn-primary btn-lg col" onClick={this.skipQuestion}>Skip</button>
+								<button className="btn btn-primary btn-lg col mr-4" onClick={this.showAnswer}>Show answer</button>
+								<button className="btn btn-primary btn-lg col" onClick={this.nextQuestion}>Skip</button>
 							</div>
 						</div>
 					</div>
