@@ -15,8 +15,13 @@ class QuestionInput extends Component {
 			question: this.refs.questionText.value,
 			answer: this.refs.answerText.value
 		}
-		this.props.updateQuestion(this.props.number - 1, questionAnswer);
-		console.log(this.refs.answerText.value);
+		this.props.updateQuestion(this.props.id, questionAnswer);
+		console.log('key is ' + this.props.id);
+	}
+
+	handleRemove = () => {
+		console.log('removing' + this.props.id);
+		this.props.removeQuestion(this.props.id);
 	}
 
 	didComponentMount() {
@@ -25,12 +30,13 @@ class QuestionInput extends Component {
 
 	render() {
 		return (
-			<div className="d-flex">
-				<span className="big-number">{this.props.number}.</span>
-				<div className="form-group col-md-12">
+			<div className="d-flex justify-content-between align-items-center">
+				<span className="big-number mr-3">{this.props.number}.</span>
+				<div className="form-group qa-inputs">
 					<input className="question" type="text" className="form-control" ref="questionText" onChange={this.handleChange} placeholder="Question"/>
 					<input className="answer" type="text" className="form-control" ref="answerText" onChange={this.handleChange} placeholder="Answer"/>
 				</div>
+				<span className="ml-3" onClick={this.handleRemove}>X</span>
 			</div>
 		)
 	}

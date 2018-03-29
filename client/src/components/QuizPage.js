@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import NavBar from './NavBar.js'
 import axios from 'axios';
 import Card, { CardContent } from 'material-ui/Card';
@@ -51,13 +52,15 @@ class QuizPage extends Component {
 
 		const {title, description} = this.state.quiz;
 		return ([
-			<NavBar/>,
+			<NavBar history={this.props.history}/>,
 			<div className="container">
 				<h1 className="mt-5">{title}</h1>
 				<p>{description}</p>
 				<div className="row">
 					<div className="col">
-						<button className="btn btn-primary">Play Now</button>
+						<Link to={`/room/${this.state.quiz._id}`}>
+							<button className="btn btn-primary">Play Now</button>
+						</Link>
 					</div>
 				</div>
 				<div className="row mt-4">

@@ -38,28 +38,39 @@ class CreateQuizPage extends Component {
 	}
 
 	addQuestion() {
-		this.setState({questions: [...this.state.questions, ""]});
+		var newQuestion = {
+			key: Date.now(),
+			question: '',
+			answer: ''
+		}
+		this.setState({questions: this.state.questions.concat(newQuestion)});
 	}
 
-	updateQuestion(index, question) {
-		var questionsArray = [...this.state.questions];
-		questionsArray[index] = question;
-		this.setState({
-			questions: questionsArray
-		})
+	updateQuestion(key, question) {
+		var newQuestions = this.state.questions.map(el => {
+			if (el.key == key) {
+				return Object.assign({}, el, question);
+			}
+			return el
+		});
+		this.setState({questions: newQuestions});
+	}
+
+	removeQuestion = (id) => {
+		this.setState({questions: this.state.questions.filter(e=>e.key!==id)});
 	}
 
 	renderQuestions() {
 		return this.state.questions.map((question, i) => {
 			return (
-				<QuestionInput number={i + 1} key={i} question={question} updateQuestion={this.updateQuestion}/>
+				<QuestionInput number={i + 1} key={question.key} id={question.key} question={question} updateQuestion={this.updateQuestion} removeQuestion={this.removeQuestion}/>
 			)
 		})
 	}
 
 	render() {
 		return ([
-			<NavBar/>,
+			<NavBar history={this.props.history}/>,
 			<div className="container mt-5">
 				<h1>New Quiz</h1>
 				<TextField

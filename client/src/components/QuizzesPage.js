@@ -52,7 +52,7 @@ class QuizzesPage extends Component {
 
 	render() {
 		return [
-			<NavBar/>,
+			<NavBar history={this.props.history}/>,
 			<div className="container mt-5">
 				<h1>My Quizzes</h1>
 				<div className="d-flex justify-content-end">

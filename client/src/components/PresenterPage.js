@@ -162,7 +162,7 @@ class PresenterPage extends Component {
 
 	render() {
 		return ([
-			<NavBar/>,
+			<NavBar history={this.props.history}/>,
 			<div className="container">
 				<div className="row mt-5">
 					<div className="col-md-3">

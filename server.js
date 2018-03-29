@@ -16,6 +16,15 @@ const port = process.env.PORT || 8888;
 //middleware used to extract body of post request
 app.use(bodyParser.json());
 
+app.use(function (err, req, res, next) {
+  console.log("fadddkj");
+  if (err.name === 'UnauthorizedError') {
+    console.log("fadkj");
+    res.redirect(401, '/login');
+    res.end();
+  }
+});
+
 //*****  USER API *****//
 
 //registers an user
@@ -164,14 +173,14 @@ app.patch('/api/quizzes/:id', authenticate, (req, res) => {
 
 // Serve static files from the React app
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
+// });
 
 
 var server = app.listen(port, () => {

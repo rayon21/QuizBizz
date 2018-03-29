@@ -183,6 +183,11 @@ nav {
 
 }
 
+/* question input */
+.qa-inputs {
+  flex: 1 1 auto;
+}
+
 /* buzzer */
 
 .buzzer-container {

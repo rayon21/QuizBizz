@@ -48,10 +48,11 @@ class RegistrationBox extends Component {
 			email: this.state.email,
 			password: this.state.password
 		}).then((res) => {
-			console.log(res.data);
 			this.setState({loading: false});
-			this.props.history.push("/quizzes");
-			//TODO login user
+			//login user (give them token)
+			localStorage.setItem('token', res.headers['x-auth']);
+		}).then(() => {
+			<this className="props history"></this>.push("/quizzes");
 		}).catch((e) => {
 			this.setState({error: true});
 			this.setState({loading: false});

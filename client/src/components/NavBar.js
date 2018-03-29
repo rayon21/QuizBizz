@@ -15,7 +15,7 @@ class NavBar extends Component {
 			}
 		}).then((res) => {
 			console.log(res.data);
-			alert("you have been logged out TODO redirect");
+			this.props.history.push('/');
 		})
 	}
 
