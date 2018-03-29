@@ -100,6 +100,23 @@ html, body, #root {
 
 .info-section {
   background-color: #5764f9;
+  padding-top: 150px;
+}
+
+.info-section img {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  margin-bottom: 30px;
+}
+
+.join-room-button {
+  background-color: #FFF;
+  border-radius: 13px;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.00);
+  padding-right: 10px;
+  padding-left: 20px;
+  padding: 10px;
 }
 
 /* Navagation */
