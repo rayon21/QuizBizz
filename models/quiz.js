@@ -32,6 +32,9 @@ var Quiz = mongoose.model('Quiz', {
     answer: {
       type: String,
       required: true
+    },
+    key: {
+      type: Number
     }
   }],
   // questions:{
