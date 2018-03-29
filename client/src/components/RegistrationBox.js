@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
-
+//import { GoogleLogin } from 'react-google-login';
 
 var validator = require('validator');
 
@@ -74,6 +74,10 @@ class RegistrationBox extends Component {
 		});
 	}
 
+	// responseGoogle = (response) => {
+	// 	console.log(response);
+	// }
+
 	render() {
 		return (
 			<div className="d-flex pr-5 pl-5 flex-column">
@@ -108,6 +112,14 @@ class RegistrationBox extends Component {
 					    			"Register"
 					    		}
 					    	</button>
+							{/* <GoogleLogin
+								clientId="client_id"
+								scope='profile email https://www.googleapis.com/auth/youtube'
+								buttonText="Login"
+								onSuccess={this.responseGoogle}
+								onFailure={this.responseGoogle}
+							/> */}
+							
 					    </div>
 					</form>
 				</div>
