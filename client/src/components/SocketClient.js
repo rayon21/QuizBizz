@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TextField from 'material-ui/TextField';
 import io from "socket.io-client";
 
 class SocketClient extends Component {
@@ -62,17 +63,25 @@ class SocketClient extends Component {
     return (
       <div style={{ textAlign: "center" }} className="joinRoomBox room-code-bg">
 
-        <div className="pt-5 height-screen">
-        <div className="col-sm-4 offset-sm-4 border pb-3 pt-4 mb-3 room-code-container">
-          <h3>Get Started</h3>
-          <form action="" className="mb-3">
-            <div className="form-group">
-              <label>Room Code</label>
-              <input type="text" className="form-control" placeholder="Enter Name..." onChange={this.handleChange('playerName')}/>
-              <input type="text" className="form-control" placeholder="Enter code..." onChange={this.handleChange('roomId')}/>
-
-            </div>
-            <button type="submit" className="btn btn-primary text-center" onClick={this.handleSubmit}>Enter</button>
+        <div className="pt-5 container d-flex col-md-12 justify-content-center">
+        <div className="col-sm-4 pb-3 pt-4 mb-3 room-code-container">
+          <h3>Join a Quiz</h3>
+          <form action="" className="mb-3 mr-4 ml-4">
+            <TextField
+                fullWidth
+                type="text"
+                label="Enter your name"
+                margin="normal"
+                onChange={this.handleChange('playerName')}
+              />
+              <TextField
+                fullWidth
+                type="text"
+                label="Room code"
+                margin="normal"
+                onChange={this.handleChange('roomId')}
+              />
+            <button type="submit" className="btn btn-primary text-center mt-3" onClick={this.handleSubmit}>Enter</button>
           </form>
           {validId
             ? <p>(4 character code)</p>
