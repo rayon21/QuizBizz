@@ -108,7 +108,7 @@ app.get('/api/quizzes/:id', authenticate, (req, res) => {
 });
 
 // deletes the quiz based on the _id
-app.delete('api/quizzes/:id', authenticate, (req, res) => {
+app.delete('/api/quizzes/:id', authenticate, (req, res) => {
   var id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
@@ -130,9 +130,10 @@ app.delete('api/quizzes/:id', authenticate, (req, res) => {
 });
 
 // updates the quiz based on the quiz _id
-app.patch('api/quizzes/:id', authenticate, (req, res) => {
+app.patch('/api/quizzes/:id', authenticate, (req, res) => {
+  console.log("PATCHED");
   var id = req.params.id;
-  var body = _.pick(req.body, ['title', 'completed']);
+  var body = _.pick(req.body, ['title', 'completed', 'participants']);
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
@@ -151,43 +152,26 @@ app.patch('api/quizzes/:id', authenticate, (req, res) => {
     }
 
     res.send({quiz});
+
   }).catch((e) => {
     res.status(400).send();
-  })
+  });
+
 });
 
-
-
-//*****  ROOM API *****//
-
-
-
-//*****  API CALLS *****
-
-//test endpoint
-// app.get('/api/:version', function(req, res) {
-//     res.send("ASS");
-//   });
-
-// app.get('/api/quizzes/:teacherID', function(req, res) {
-
-// 	//connect to mongoDB, get quizzes based on teacher ID
-//     res.send(req.params);
-
-//   });
 
 //***** REACT FILES *****
 
 // Serve static files from the React app
 
-// app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-// // The "catchall" handler: for any request that doesn't
-// // match one above, send back React's index.html file.
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 
 var server = app.listen(port, () => {
