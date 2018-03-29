@@ -28,15 +28,6 @@ class Header extends Component {
 						<circle id="XMLID_5_" cx="229.5" cy="16.9" r="5.5"/>
 					</g>
 				</svg></a>
-
-				<ul className="nav justify-content-end">
-					<li className="nav-item">
-						<a href="#" className="nav-link">Sign Up</a>
-					</li>
-					<li className="nav-item">
-						<a href="#" className="nav-link">Login</a>
-					</li>
-				</ul>
 			</nav>
 		)
 	}
