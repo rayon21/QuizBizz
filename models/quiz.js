@@ -47,7 +47,7 @@ var Quiz = mongoose.model('Quiz', {
     default: false
   },
   completedAt: {
-    type: Number,
+    type: String,
     default: null
   },
   _creator: {

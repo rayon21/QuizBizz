@@ -149,7 +149,23 @@ app.patch('/api/quizzes/:id', authenticate, (req, res) => {
   }
 
   if (_.isBoolean(body.completed) && body.completed) {
-    body.completedAt = new Date().getTime();
+    // setting todays date
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd;
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm;
+    } 
+
+    body.completedAt = mm + '/' + dd + '/' + yyyy;
+    // body.completedAt = new Date().getTime();
+
   } else {
     body.completed = false;
     body.completedAt = null;

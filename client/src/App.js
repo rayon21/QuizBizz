@@ -12,6 +12,7 @@ import PresenterPage                    from './components/PresenterPage';
 import PlayerRoom                       from './components/PlayerRoom';
 import ParticipantsBox                  from './components/ParticipantsBox';
 import Timer                            from './components/Timer';
+import GameOver                         from './components/GameOver';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -29,6 +30,7 @@ class App extends Component {
           <Route path="/room/:id" component={PresenterPage}/>
           <Route path="/timer" component={Timer}/>
           <Route path="/play/:id" component={PlayerRoom}/>
+          <Route path="/gameover/:id" component={GameOver}/>
           <Route path="/box" component={ParticipantsBox}/>
         </Switch>
       </BrowserRouter>
