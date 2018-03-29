@@ -12,7 +12,7 @@ class PresenterPage extends Component {
 			question: '',
 			roomId: '',
 			gameState: '',
-			showAnswer: true,
+			showAnswer: false,
 			players: [],
 			answerQueue: [],
 			endpoint: "/",
@@ -127,7 +127,14 @@ class PresenterPage extends Component {
 	 }
 
 	 showAnswer = () => {
-	 	
+	 	this.setState({showAnswer: true})
+	 }
+	 hideAnswer = () => {
+	 	this.setState({showAnswer: false})
+	 }
+
+	 skipQuestion = () => {
+	 	//TODO
 	 }
 
 	handleEnableBuzzer(e){
@@ -162,7 +169,7 @@ class PresenterPage extends Component {
 
 	render() {
 		return ([
-			<NavBar/>,
+			<NavBar history={this.props.history}/>,
 			<div className="container">
 				<div className="row mt-5">
 					<div className="col-md-3">
@@ -187,12 +194,13 @@ class PresenterPage extends Component {
 					<div className="col-md-9">
 						<div className="container">
       						<Question question={this.state.currentQuestion} key="x"/>
-							<Question question={this.state.currentAnswer}/>
+      						{this.state.showAnswer ? <Question question={this.state.currentAnswer}/> : undefined}
 							{this.renderAnswerQueue()}
-							<div className="right-wrong-buttons mt-4 d-flex justify-content-center">
-								<button className="btn btn-primary btn-lg" onClick={this.nextQuestion}>✅</button>
-								<button className="btn btn-primary btn-lg" onClick={this.nextPlayer}>❌</button>
-								<button className="btn btn-primary btn-lg" onClick={this.showAnswer}>Answer</button>
+							<div className="right-wrong-buttons mt-4 d-flex justify-content-between">
+								<button className="btn btn-primary btn-lg col mr-4" onClick={this.nextQuestion}>✅</button>
+								<button className="btn btn-primary btn-lg col mr-4" onClick={this.nextPlayer}>❌</button>
+								<button className="btn btn-primary btn-lg col mr-4" onClick={this.showAnswer}>show answer</button>
+								<button className="btn btn-primary btn-lg col" onClick={this.skipQuestion}>Skip</button>
 							</div>
 						</div>
 					</div>

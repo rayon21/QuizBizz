@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
+import Header from './Header.js';
 
 class PlayerRoom extends Component {
   constructor(props) {
@@ -58,21 +59,22 @@ class PlayerRoom extends Component {
 
   render() {
     const pushButton = this.state.pushButton;
-    var color = pushButton ? ({background:"green"}) : ({background:"red"});
-    return (
-      <div style={{ textAlign: "center" }} style={color} className="height-screen pt-5">
+    var color = pushButton ? ({backgroundColor:"green"}) : ({backgroundColor:"red"});
+    return ([
+      <Header/>,
+      <div style={{ textAlign: "center" }} className="height-screen pt-5 bg-primarytwo">
 
-        <div className="container mb-3">
+        <div className="container mb-3 mt-5">
         <div className="col-sm-4 offset-sm-4 buzzer-container pb-3 pt-4 mb-3">
           <div className="col-md-12 text-center">
           </div>
-
-            <button type="submit" className="btn btn-primary disabled col-md-12 pt-5 pb-5 mt-4" onClick={this.handleSubmit}>BUZZ</button>
+  
+            <button type="submit" style={color} className="btn btn-primary col-md-12 pt-5 pb-5 mt-4" onClick={this.handleSubmit}>BUZZ</button>
           
         </div>
       </div>
       </div>
-    );
+    ]);
   }
 }
 export default PlayerRoom;
