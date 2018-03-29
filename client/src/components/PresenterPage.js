@@ -106,7 +106,8 @@ class PresenterPage extends Component {
 			currentQuestion: this.state.quiz.questions[this.state.currentQuestionNumber].question,
 			currentAnswer: this.state.quiz.questions[this.state.currentQuestionNumber].answer,
 			answerQueue: [],
-			players: this.state.players
+			players: this.state.players,
+			showAnswer: false
 		});
 		return true;
 
