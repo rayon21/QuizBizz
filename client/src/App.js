@@ -12,6 +12,7 @@ import PresenterPage                    from './components/PresenterPage';
 import PlayerRoom                       from './components/PlayerRoom';
 import ParticipantsBox                  from './components/ParticipantsBox';
 import Timer                            from './components/Timer';
+import EditQuiz                         from './components/EditQuiz';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path="/timer" component={Timer}/>
           <Route path="/play/:id" component={PlayerRoom}/>
           <Route path="/box" component={ParticipantsBox}/>
+          <Route path="/edit" component={EditQuiz}/>
         </Switch>
       </BrowserRouter>
     );

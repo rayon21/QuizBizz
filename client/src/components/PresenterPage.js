@@ -131,9 +131,8 @@ class PresenterPage extends Component {
 	    // add points to first element in the list
 	    if(this.state.answerQueue.length > 0){
 			var index = this.state.players.map(function(e) { return e.playerName;}).indexOf(this.state.answerQueue[0]);
-			//this.state.players[index].points += 1;
+			this.state.players[index].points += 1;
 		} 
-		
 		this.nextQuestion();
 	}
 
