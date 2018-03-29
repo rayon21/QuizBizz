@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TextField from 'material-ui/TextField';
 import io from "socket.io-client";
+import Header from './Header.js';
 
 class SocketClient extends Component {
   constructor(props) {
@@ -60,7 +61,8 @@ class SocketClient extends Component {
   render() {
     const { validId } = this.state;
     var errColor = {color:"red"};
-    return (
+    return ([
+      <Header/>,
       <div style={{ textAlign: "center" }} className="joinRoomBox room-code-bg">
 
         <div className="pt-5 container d-flex col-md-12 justify-content-center">
@@ -91,7 +93,7 @@ class SocketClient extends Component {
         </div>
       </div>
       </div>
-    );
+    ]);
   }
 }
 export default SocketClient;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
+import Header from './Header.js';
 
 class PlayerRoom extends Component {
   constructor(props) {
@@ -59,10 +60,11 @@ class PlayerRoom extends Component {
   render() {
     const pushButton = this.state.pushButton;
     var color = pushButton ? ({backgroundColor:"green"}) : ({backgroundColor:"red"});
-    return (
+    return ([
+      <Header/>,
       <div style={{ textAlign: "center" }} className="height-screen pt-5 bg-primarytwo">
 
-        <div className="container mb-3">
+        <div className="container mb-3 mt-5">
         <div className="col-sm-4 offset-sm-4 buzzer-container pb-3 pt-4 mb-3">
           <div className="col-md-12 text-center">
           </div>
@@ -72,7 +74,7 @@ class PlayerRoom extends Component {
         </div>
       </div>
       </div>
-    );
+    ]);
   }
 }
 export default PlayerRoom;
