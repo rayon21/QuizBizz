@@ -170,3 +170,13 @@ nav {
     animation-duration: 4s;
 
 }
+
+/* buzzer */
+
+.buzzer-container {
+  background-color: #FFF;
+  border-radius: 13px;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.00);
+  padding-right: 25px;
+  padding-left: 25px;
+}

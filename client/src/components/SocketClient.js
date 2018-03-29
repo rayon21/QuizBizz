@@ -62,7 +62,7 @@ class SocketClient extends Component {
     return (
       <div style={{ textAlign: "center" }} className="joinRoomBox room-code-bg">
 
-        <div className=" mb-3 mt-4">
+        <div className=" mb-3 mt-4 height-screen">
         <div className="col-sm-4 offset-sm-4 border pb-3 pt-4 mb-3 room-code-container">
           <h3>Get Started</h3>
           <form action="" className="mb-3">
@@ -72,7 +72,7 @@ class SocketClient extends Component {
               <input type="text" className="form-control" placeholder="Enter code..." onChange={this.handleChange('roomId')}/>
 
             </div>
-            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Enter</button>
+            <button type="submit" className="btn btn-primary text-center" onClick={this.handleSubmit}>Enter</button>
           </form>
           {validId
             ? <p>(4 character code)</p>

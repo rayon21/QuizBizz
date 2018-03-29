@@ -60,13 +60,14 @@ class PlayerRoom extends Component {
     const pushButton = this.state.pushButton;
     var color = pushButton ? ({background:"green"}) : ({background:"red"});
     return (
-      <div style={{ textAlign: "center" }} style={color}>
+      <div style={{ textAlign: "center" }} style={color} className="height-screen pt-5">
 
         <div className="container mb-3">
-        <div className="col-sm-4 offset-sm-4 border pb-3 pt-4 mb-3">
-          <h3>Press Button</h3>
+        <div className="col-sm-4 offset-sm-4 buzzer-container pb-3 pt-4 mb-3">
+          <div className="col-md-12 text-center">
+          </div>
 
-            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Enter</button>
+            <button type="submit" className="btn btn-primary disabled col-md-12 pt-5 pb-5 mt-4" onClick={this.handleSubmit}>BUZZ</button>
           
         </div>
       </div>
