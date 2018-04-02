@@ -91,29 +91,6 @@ class EditQuiz extends Component {
 			)
 		})
 	}
-  
-    
-    renderQuestionsz = () => {
-		if (!this.state.quiz.questions) {
-			return undefined;
-		}
-		return (this.state.quiz.questions.map((question, index) => {
-			return (
-				<div key={index} className="mb-2 col-md-12">
-			      <Card>
-			        <CardContent>
-			          <Typography variant="headline" component="h2">
-			            {`${index + 1}. ${question.question}`}
-			          </Typography>
-			          <Typography color="textSecondary">
-			            {question.answer}
-			          </Typography>
-			        </CardContent>
-			      </Card>
-    			</div>
-			)
-		}));
-	}
 
 	render() {
         const {title, description} = this.state.quiz;
@@ -126,7 +103,6 @@ class EditQuiz extends Component {
 				<div className="container">
                     {this.renderPreQuestions()}
                     {this.renderQuestions()}
-                    {this.renderQuestionsz()}
 				</div>
 				<div className="row mt-4">
 					<div className="col text-center">
