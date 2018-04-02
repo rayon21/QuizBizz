@@ -85,7 +85,8 @@ class PresenterPage extends Component {
 			console.log(token);
 			axios.patch('/api/quizzes/' + window.location.pathname.split("/")[2],
 			 {
-			 	participants: this.state.players
+			 	participants: this.state.players,
+			 	completed: true
 			 },
 			 {
 				headers: {
@@ -93,6 +94,8 @@ class PresenterPage extends Component {
 				}
 			}).then((res) => {
 				console.log(res);
+				r.props.history.push("/gameover/" + window.location.pathname.split("/")[2]);
+
 			});
 			
 			return false;
@@ -103,7 +106,8 @@ class PresenterPage extends Component {
 			currentQuestion: this.state.quiz.questions[this.state.currentQuestionNumber].question,
 			currentAnswer: this.state.quiz.questions[this.state.currentQuestionNumber].answer,
 			answerQueue: [],
-			players: this.state.players
+			players: this.state.players,
+			showAnswer: false
 		});
 		return true;
 

@@ -149,7 +149,23 @@ app.patch('/api/quizzes/:id', authenticate, (req, res) => {
   }
 
   if (_.isBoolean(body.completed) && body.completed) {
-    body.completedAt = new Date().getTime();
+    // setting todays date
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd;
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm;
+    } 
+
+    body.completedAt = mm + '/' + dd + '/' + yyyy;
+    // body.completedAt = new Date().getTime();
+
   } else {
     body.completed = false;
     body.completedAt = null;
@@ -173,14 +189,14 @@ app.patch('/api/quizzes/:id', authenticate, (req, res) => {
 
 // Serve static files from the React app
 
-// app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 
 var server = app.listen(port, () => {
