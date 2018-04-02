@@ -12,11 +12,8 @@ import PresenterPage                    from './components/PresenterPage';
 import PlayerRoom                       from './components/PlayerRoom';
 import ParticipantsBox                  from './components/ParticipantsBox';
 import Timer                            from './components/Timer';
-<<<<<<< HEAD
 import EditQuiz                         from './components/EditQuiz';
-=======
 import GameOver                         from './components/GameOver';
->>>>>>> 8172edc4f8a26afe96bda39e06f36b0e9a66e2ae
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
