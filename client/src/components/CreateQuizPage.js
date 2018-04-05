@@ -48,7 +48,7 @@ class CreateQuizPage extends Component {
 
 	updateQuestion(key, question) {
 		var newQuestions = this.state.questions.map(el => {
-			if (el.key == key) {
+			if (el.key === key) {
 				return Object.assign({}, el, question);
 			}
 			return el
