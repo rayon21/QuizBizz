@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 import Header from './Header.js';
+import { Redirect } from 'react-router';
 
 class PlayerRoom extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class PlayerRoom extends Component {
       endpoint: '/',
       roomId: window.location.pathname.split("/")[2],
       playerName: window.location.pathname.split("/")[3],
-      pushButton: false
+      pushButton: false,
+      toTimer: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -31,7 +33,6 @@ class PlayerRoom extends Component {
 
 
     this.socket.on('playerEnableBuzzer', function(){
-            console.log("VALID BUZZER")
             r.setState({
               pushButton: true
             });
@@ -55,10 +56,14 @@ class PlayerRoom extends Component {
       this.socket.emit('playerPushButton',data);
     }
     this.setState({pushButton: false});
+
+    console.log("here");
+    this.setState({toTimer: true});
   }
 
   render() {
     const pushButton = this.state.pushButton;
+    if(this.state.toTimer)  return <Redirect push to="/timer" />;
     return ([
       <Header/>,
       <div className="height-screen pt-5 bg-primarytwo">
@@ -70,7 +75,7 @@ class PlayerRoom extends Component {
           </div>
           </div> */}
         <div className="vertical-center text-center">
-              <button type="submit" className={pushButton ? "btn buzzer buzzer-green": "btn buzzer buzzer-red"}  onClick={this.handleSubmit}>BUZZ</button>
+              <button type="submit" disabled={pushButton?false:true} className={pushButton ? "buzzer buzzer-green": "buzzer buzzer-red"}  onClick={this.handleSubmit}>BUZZ</button>
             
         </div>
       </div>
