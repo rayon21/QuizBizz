@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 import Header from './Header.js';
-import { Redirect } from 'react-router';
+import Timer  from './Timer.js';
 
 class PlayerRoom extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class PlayerRoom extends Component {
       toTimer: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.showButton = this.showButton.bind(this);
 
   }
 
@@ -56,14 +57,22 @@ class PlayerRoom extends Component {
       this.socket.emit('playerPushButton',data);
     }
     this.setState({pushButton: false});
-
-    console.log("here");
     this.setState({toTimer: true});
+  }
+
+  showButton(){
+    this.setState({toTimer: false});
   }
 
   render() {
     const pushButton = this.state.pushButton;
-    if(this.state.toTimer)  return <Redirect push to="/timer" />;
+    const toTimer = this.state.toTimer;
+    if(toTimer){
+      //this.showButton();
+      return ([
+        <Timer/>
+      ]);}
+
     return ([
       <Header/>,
       <div className="height-screen pt-5 bg-primarytwo">
