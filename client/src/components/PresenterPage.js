@@ -23,6 +23,7 @@ class PresenterPage extends Component {
 		    currentQuestionNumber: 1
 		};
 		this.handleEnableBuzzer = this.handleEnableBuzzer.bind(this);
+		this.handleDisableBuzzer = this.handleDisableBuzzer.bind(this);
 	}
 
 	  componentDidMount() {
@@ -69,6 +70,7 @@ class PresenterPage extends Component {
 	
 	//updates the current question to the next, returns true if it can, false if not
 	nextQuestion = () => {
+		this.handleDisableBuzzer();
 		if (this.state.quiz && this.state.currentQuestionNumber >= this.state.quiz.questions.length) {
 
 			this.setState({
@@ -110,8 +112,6 @@ class PresenterPage extends Component {
 			showAnswer: false
 		});
 		return true;
-
-	    // this.socket.emit('enableBuzzer', r.state.roomId);
 	  }
 	  
 	nextPlayer = () => {
@@ -144,6 +144,12 @@ class PresenterPage extends Component {
 		e.preventDefault();
 		var r = this;
 	    this.socket.emit('enableBuzzer', r.state.roomId);
+	}
+
+	handleDisableBuzzer(e){
+		//e.preventDefault();
+		var r = this;
+	    this.socket.emit('disableBuzzer', r.state.roomId);
 	}
 
 	renderPlayerList() {

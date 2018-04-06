@@ -34,11 +34,16 @@ class PlayerRoom extends Component {
 
 
     this.socket.on('playerEnableBuzzer', function(){
-            r.setState({
-              pushButton: true
-            });
-      }
-    );
+      r.setState({
+        pushButton: true
+      });
+    });
+
+    this.socket.on('playerDisableBuzzer', function(){
+      r.setState({
+        pushButton: false
+      });
+    });
   }
 
   handleChange = name => event => {
