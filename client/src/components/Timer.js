@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header.js';
-
+import wrongSound from '../audio/wrong.mp3'
 
 class Timer extends Component {
     constructor() {
@@ -42,7 +42,7 @@ class Timer extends Component {
                 {this.startTimer()}
                 <div className="vertical-top text-center text-danger timer "> 
                     {this.state.seconds} 
-                    <audio id="audio" ><source src="http://www.orangefreesounds.com/wp-content/uploads/2014/08/Wrong-answer-sound-effect.mp3?_=1" type="audio/mpeg" /></audio>
+                    <audio id="wrong" ><source src={wrongSound} type="audio/mpeg" /></audio>
                 </div>
             </div>
         ]);

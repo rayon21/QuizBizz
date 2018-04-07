@@ -3,6 +3,8 @@ import NavBar from './NavBar.js';
 import Question from './Game/Question.js';
 import io from "socket.io-client";
 import axios from 'axios';
+import correctSound from '../audio/correct.mp3'
+import wrongSound from '../audio/wrong.mp3'
 
 class PresenterPage extends Component {
 
@@ -116,6 +118,8 @@ class PresenterPage extends Component {
 	  }
 	  
 	nextPlayer = () => {
+		let audio = document.getElementById("wrong");
+        audio.play(); 
 		this.handleStopTimer();
 	 	if(this.state.answerQueue.length > 0){
 			this.state.answerQueue.splice(0,1);
@@ -134,12 +138,16 @@ class PresenterPage extends Component {
 	}
 
 	correctAnswer = () => {
+		let audio = document.getElementById("correct");
+        audio.play(); 
 		this.handleStopTimer();
+
 		// add points to first element in the list
 	    if(this.state.answerQueue.length > 0){
 			var index = this.state.players.map(function(e) { return e.playerName;}).indexOf(this.state.answerQueue[0]);
 			this.state.players[index].points += 1;
 		} 
+
 		this.nextQuestion();
 	}
 
@@ -188,7 +196,6 @@ class PresenterPage extends Component {
 		)
 	}
 
-
 	render() {
 		return ([
 			<NavBar history={this.props.history}/>,
@@ -208,7 +215,7 @@ class PresenterPage extends Component {
 						<div className="players-list mt-4">
 							<h3 className="mb-3">Players</h3>
 							<ul className="list-group">
-							  {this.state.players.length == 0 ? (<span className='grey-text'>There are currently no players</span>) : undefined}
+							  {this.state.players.length === 0 ? (<span className='grey-text'>There are currently no players</span>) : undefined}
 							  {this.renderPlayerList()}
 							</ul>
 						</div>
@@ -223,7 +230,10 @@ class PresenterPage extends Component {
 								<button className="btn btn-danger btn-lg col mr-4" onClick={this.nextPlayer}>❌</button>
 								<button className="btn btn-info btn-lg col mr-4" onClick={this.showAnswer}>Show answer</button>
 								<button className="btn btn-warning btn-lg col mr-4" onClick={this.nextQuestion}>Skip</button>
-								<button className="btn btn-primary btn-lg col" onClick={this.handleStartTimer}>Start Timer</button>
+								<button className="btn btn-primary btn-lg col " onClick={this.handleStartTimer}>Start Timer</button>
+								<audio id="wrong" ><source src="http://www.orangefreesounds.com/wp-content/uploads/2014/08/Wrong-answer-sound-effect.mp3?_=1" type="audio/mpeg" /></audio>
+								<audio id="correct" ><source src={correctSound} type="audio/mpeg" /></audio>
+								<audio id="wrong" ><source src={wrongSound} type="audio/mpeg" /></audio>
 							</div>
 						</div>
 					</div>
