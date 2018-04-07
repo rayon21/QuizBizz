@@ -25,6 +25,8 @@ var codeArr = ["bitch"];
     gameSocket.on('enableBuzzer', hostEnableBuzzer);
     gameSocket.on('disableBuzzer', hostDisableBuzzer);
     gameSocket.on('checkRoomId', checkRoomId);
+    gameSocket.on('newQuestion', sendPlayerQuestion);
+    gameSocket.on('gameOver', notifyPlayersGameOver);
 
 }
 
@@ -97,6 +99,14 @@ function checkRoomId(data, fn){
         fn({valid:false});
     }
 
+}
+
+function sendPlayerQuestion(roomId, question){
+    io.sockets.in(roomId).emit('newQuestion', question);
+}
+
+function notifyPlayersGameOver (roomId){
+    io.sockets.in(roomId).emit('gameOver');
 }
 
 

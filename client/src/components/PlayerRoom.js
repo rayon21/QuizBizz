@@ -11,7 +11,9 @@ class PlayerRoom extends Component {
       roomId: window.location.pathname.split("/")[2],
       playerName: window.location.pathname.split("/")[3],
       pushButton: false,
-      toTimer: false
+      toTimer: false,
+      currentQuestion: "test",
+      gameOver: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showButton = this.showButton.bind(this);
@@ -42,6 +44,19 @@ class PlayerRoom extends Component {
     this.socket.on('playerDisableBuzzer', function(){
       r.setState({
         pushButton: false
+      });
+    });
+
+    this.socket.on('newQuestion', function(question){
+      console.log("BITCH ***********")
+      r.setState({
+        currentQuestion: question
+      });
+     });
+
+    this.socket.on('gameOver', function(){
+      r.setState({
+        gameOver: true
       });
     });
   }
@@ -93,6 +108,7 @@ class PlayerRoom extends Component {
           </div>
           </div> */}
         <div className="vertical-center text-center">
+              <h1> {this.state.currentQuestion} </h1>
               <button type="submit" disabled={pushButton?false:true} className={pushButton ? "buzzer buzzer-green": "buzzer buzzer-red"}  onClick={this.handleSubmit}>BUZZ</button>
             
         </div>
