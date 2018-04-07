@@ -105,8 +105,8 @@ function sendPlayerQuestion(roomId, question){
     io.sockets.in(roomId).emit('newQuestion', question);
 }
 
-function notifyPlayersGameOver (roomId){
-    io.sockets.in(roomId).emit('gameOver');
+function notifyPlayersGameOver (roomId, playerName, points){
+    io.sockets.in(roomId).emit('gameOver' + playerName, points);
 }
 
 

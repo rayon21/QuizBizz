@@ -13,7 +13,9 @@ class PlayerRoom extends Component {
       pushButton: false,
       toTimer: false,
       currentQuestion: "test",
-      gameOver: false
+      gameOver: false,
+      score: 0,
+      leaderboardNum: 0
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showButton = this.showButton.bind(this);
@@ -54,9 +56,10 @@ class PlayerRoom extends Component {
       });
      });
 
-    this.socket.on('gameOver', function(){
+    this.socket.on('gameOver' + this.state.playerName, function(points){
       r.setState({
-        gameOver: true
+        gameOver: true,
+        score: points
       });
     });
   }
@@ -96,6 +99,18 @@ class PlayerRoom extends Component {
       return ([
         <Timer/>
       ]);}
+    if(this.state.gameOver){
+      return([
+          <Header/>,
+          <div className="height-screen pt-5 bg-primarytwo">
+            <div className="vertical-center text-center">
+                  <h1> GAME OVER </h1>
+                  <h1> SCORE : {this.state.score} </h1>
+                                  
+            </div>
+          </div>
+        ]);
+    }
 
     return ([
       <Header/>,

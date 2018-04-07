@@ -87,6 +87,11 @@ class PresenterPage extends Component {
 			// should load page of winners in table
 
 			var r = this;
+			this.state.players.forEach( function(player){
+				r.socket.emit('gameOver', r.state.roomId, player.playerName, player.points);
+			}
+			);
+
 		    const token = localStorage.getItem('token');
 		    console.log("QUIZ ENDED, MONGO UPDATED");
 			console.log(token);
@@ -104,8 +109,6 @@ class PresenterPage extends Component {
 				r.props.history.push("/gameover/" + window.location.pathname.split("/")[2]);
 
 			});
-			this.socket.emit('gameOver', r.state.roomId);
-
 			
 			return false;
 		}
