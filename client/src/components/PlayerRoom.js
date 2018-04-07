@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 import Header from './Header.js';
+import Timer  from './Timer.js';
 
 class PlayerRoom extends Component {
   constructor(props) {
@@ -9,9 +10,11 @@ class PlayerRoom extends Component {
       endpoint: '/',
       roomId: window.location.pathname.split("/")[2],
       playerName: window.location.pathname.split("/")[3],
-      pushButton: false
+      pushButton: false,
+      toTimer: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.showButton = this.showButton.bind(this);
 
   }
 
@@ -31,12 +34,16 @@ class PlayerRoom extends Component {
 
 
     this.socket.on('playerEnableBuzzer', function(){
-            console.log("VALID BUZZER")
-            r.setState({
-              pushButton: true
-            });
-      }
-    );
+      r.setState({
+        pushButton: true
+      });
+    });
+
+    this.socket.on('playerDisableBuzzer', function(){
+      r.setState({
+        pushButton: false
+      });
+    });
   }
 
   handleChange = name => event => {
@@ -55,24 +62,36 @@ class PlayerRoom extends Component {
       this.socket.emit('playerPushButton',data);
     }
     this.setState({pushButton: false});
+    this.setState({toTimer: true});
+  }
+
+  showButton(){
+    this.setState({toTimer: false});
   }
 
   render() {
     const pushButton = this.state.pushButton;
-    var color = pushButton ? ({backgroundColor:"green"}) : ({backgroundColor:"red"});
+    const toTimer = this.state.toTimer;
+    if(toTimer){
+      //this.showButton();
+      return ([
+        <Timer/>
+      ]);}
+
     return ([
       <Header/>,
-      <div style={{ textAlign: "center" }} className="height-screen pt-5 bg-primarytwo">
+      <div className="height-screen pt-5 bg-primarytwo">
 
-        <div className="container mb-3 mt-5">
+        {/* <div className="container mb-3 mt-5">
         <div className="col-sm-4 offset-sm-4 buzzer-container pb-3 pt-4 mb-3">
           <div className="col-md-12 text-center">
           </div>
-  
-            <button type="submit" style={color} className="btn btn-primary col-md-12 pt-5 pb-5 mt-4" onClick={this.handleSubmit}>BUZZ</button>
-          
+          </div>
+          </div> */}
+        <div className="vertical-center text-center">
+              <button type="submit" disabled={pushButton?false:true} className={pushButton ? "buzzer buzzer-green": "buzzer buzzer-red"}  onClick={this.handleSubmit}>BUZZ</button>
+            
         </div>
-      </div>
       </div>
     ]);
   }

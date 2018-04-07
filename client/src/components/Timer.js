@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from './Header.js';
 
 
 class Timer extends Component {
@@ -35,15 +36,16 @@ class Timer extends Component {
     }
     
     render() {
-        return(
-            <div className="container">
+        return([
+            <Header/>,
+            <div className="height-screen pt-5 bg-primarytwo">
                 {this.startTimer()}
-                <div className="vertical-center text-center text-danger display-1 "> 
+                <div className="vertical-top text-center text-danger timer "> 
                     {this.state.seconds} 
                     <audio id="audio" ><source src="http://www.orangefreesounds.com/wp-content/uploads/2014/08/Wrong-answer-sound-effect.mp3?_=1" type="audio/mpeg" /></audio>
                 </div>
             </div>
-        );
+        ]);
     }
 
 }

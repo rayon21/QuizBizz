@@ -23,6 +23,7 @@ var codeArr = ["bitch"];
     gameSocket.on('playerJoinGame', playerJoinGame);
     gameSocket.on('playerPushButton', playerPushButton);
     gameSocket.on('enableBuzzer', hostEnableBuzzer);
+    gameSocket.on('disableBuzzer', hostDisableBuzzer);
     gameSocket.on('checkRoomId', checkRoomId);
 
 }
@@ -81,6 +82,11 @@ function playerPushButton(data) {
 function hostEnableBuzzer (roomId){
     console.log("ENABLE BUZZER: " + roomId);
     io.sockets.in(roomId).emit('playerEnableBuzzer', "true");
+}
+
+function hostDisableBuzzer (roomId){
+    console.log("Disable BUZZER: " + roomId);
+    io.sockets.in(roomId).emit('playerDisableBuzzer', "true");
 }
 
 function checkRoomId(data, fn){
