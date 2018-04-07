@@ -50,7 +50,6 @@ class PlayerRoom extends Component {
     });
 
     this.socket.on('newQuestion', function(question){
-      console.log("BITCH ***********")
       r.setState({
         currentQuestion: question
       });
@@ -60,6 +59,18 @@ class PlayerRoom extends Component {
       r.setState({
         gameOver: true,
         score: points
+      });
+    });
+
+    this.socket.on('playerStartTimer', function(){
+      r.setState({
+        toTimer: true
+      });
+    });
+
+    this.socket.on('playerStopTimer', function(){
+      r.setState({
+        toTimer: false
       });
     });
   }
@@ -80,22 +91,19 @@ class PlayerRoom extends Component {
       this.socket.emit('playerPushButton',data);
     }
     this.setState({pushButton: false});
-    this.setState({toTimer: true});
-    setTimeout(function(){
-      this.setState({toTimer: false});
-    }.bind(this),5000); 
   }
 
   showButton(){
-    this.setState({toTimer: false});
-
+    setTimeout(function(){
+      this.setState({toTimer: false});
+    }.bind(this),62000); 
   }
 
   render() {
     const pushButton = this.state.pushButton;
     const toTimer = this.state.toTimer;
     if(toTimer){
-      //this.showButton();
+      this.showButton();
       return ([
         <Timer/>
       ]);}
