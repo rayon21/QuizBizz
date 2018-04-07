@@ -24,6 +24,7 @@ class PresenterPage extends Component {
 		};
 		this.handleEnableBuzzer = this.handleEnableBuzzer.bind(this);
 		this.handleDisableBuzzer = this.handleDisableBuzzer.bind(this);
+		this.handleStartTimer = this.handleStartTimer.bind(this);
 	}
 
 	  componentDidMount() {
@@ -115,6 +116,7 @@ class PresenterPage extends Component {
 	  }
 	  
 	nextPlayer = () => {
+		this.handleStopTimer();
 	 	if(this.state.answerQueue.length > 0){
 			this.state.answerQueue.splice(0,1);
 		    this.setState({
@@ -132,7 +134,8 @@ class PresenterPage extends Component {
 	}
 
 	correctAnswer = () => {
-	    // add points to first element in the list
+		this.handleStopTimer();
+		// add points to first element in the list
 	    if(this.state.answerQueue.length > 0){
 			var index = this.state.players.map(function(e) { return e.playerName;}).indexOf(this.state.answerQueue[0]);
 			this.state.players[index].points += 1;
@@ -147,9 +150,19 @@ class PresenterPage extends Component {
 	}
 
 	handleDisableBuzzer(e){
-		//e.preventDefault();
 		var r = this;
 	    this.socket.emit('disableBuzzer', r.state.roomId);
+	}
+
+	handleStartTimer(e){
+		e.preventDefault();
+		var r = this;
+	    this.socket.emit('startTimer', r.state.roomId);
+	}
+
+	handleStopTimer(e){
+		var r = this;
+	    this.socket.emit('stopTimer', r.state.roomId);
 	}
 
 	renderPlayerList() {
@@ -209,7 +222,8 @@ class PresenterPage extends Component {
 								<button className="btn btn-success btn-lg col mr-4" onClick={this.correctAnswer}>✅</button>
 								<button className="btn btn-danger btn-lg col mr-4" onClick={this.nextPlayer}>❌</button>
 								<button className="btn btn-info btn-lg col mr-4" onClick={this.showAnswer}>Show answer</button>
-								<button className="btn btn-warning btn-lg col" onClick={this.nextQuestion}>Skip</button>
+								<button className="btn btn-warning btn-lg col mr-4" onClick={this.nextQuestion}>Skip</button>
+								<button className="btn btn-primary btn-lg col" onClick={this.handleStartTimer}>Start Timer</button>
 							</div>
 						</div>
 					</div>

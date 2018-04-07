@@ -44,6 +44,18 @@ class PlayerRoom extends Component {
         pushButton: false
       });
     });
+
+    this.socket.on('playerStartTimer', function(){
+      r.setState({
+        toTimer: true
+      });
+    });
+
+    this.socket.on('playerStopTimer', function(){
+      r.setState({
+        toTimer: false
+      });
+    });
   }
 
   handleChange = name => event => {
@@ -62,22 +74,19 @@ class PlayerRoom extends Component {
       this.socket.emit('playerPushButton',data);
     }
     this.setState({pushButton: false});
-    this.setState({toTimer: true});
-    setTimeout(function(){
-      this.setState({toTimer: false});
-    }.bind(this),5000); 
   }
 
   showButton(){
-    this.setState({toTimer: false});
-
+    setTimeout(function(){
+      this.setState({toTimer: false});
+    }.bind(this),62000); 
   }
 
   render() {
     const pushButton = this.state.pushButton;
     const toTimer = this.state.toTimer;
     if(toTimer){
-      //this.showButton();
+      this.showButton();
       return ([
         <Timer/>
       ]);}
