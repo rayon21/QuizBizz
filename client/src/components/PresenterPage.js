@@ -34,6 +34,19 @@ class PresenterPage extends Component {
 	    this.socket = io(endpoint);
 	    var r = this;
 
+	    const token = localStorage.getItem('token');
+		axios.get('/api/quizzes/' + window.location.pathname.split("/")[2], {
+			headers: {
+				"x-auth": token
+			}
+		}).then((res) => {
+			const firstQuestion = res.data.quiz.questions[0];
+			this.setState({quiz: res.data.quiz});
+			this.setState({currentQuestion: firstQuestion.question, currentAnswer: firstQuestion.answer});
+			// this.socket.emit('newQuestion', r.state.roomId ,r.state.currentQuestion);
+
+		});
+
 	    this.socket.emit('createNewQuiz');
 	    this.socket.on('quizCreated', function(data){
 	        console.log(data.roomId + " " + data.mySocketId);
@@ -51,6 +64,8 @@ class PresenterPage extends Component {
 	      	},
 
 	      	...r.state.players] });
+	      r.socket.emit('newQuestion', r.state.roomId ,r.state.currentQuestion);
+
 	    });
 	    //when someone clicks the button
 	    this.socket.on('joinQuizQueue',function(data){
@@ -59,16 +74,6 @@ class PresenterPage extends Component {
 
 	    });
 
-	    const token = localStorage.getItem('token');
-		axios.get('/api/quizzes/' + window.location.pathname.split("/")[2], {
-			headers: {
-				"x-auth": token
-			}
-		}).then((res) => {
-			const firstQuestion = res.data.quiz.questions[0];
-			this.setState({quiz: res.data.quiz});
-			this.setState({currentQuestion: firstQuestion.question, currentAnswer: firstQuestion.answer});
-		});
 	  }
 	
 	//updates the current question to the next, returns true if it can, false if not
@@ -85,6 +90,11 @@ class PresenterPage extends Component {
 			// should load page of winners in table
 
 			var r = this;
+			this.state.players.forEach( function(player){
+				r.socket.emit('gameOver', r.state.roomId, player.playerName, player.points);
+			}
+			);
+
 		    const token = localStorage.getItem('token');
 		    console.log("QUIZ ENDED, MONGO UPDATED");
 			console.log(token);
@@ -114,6 +124,9 @@ class PresenterPage extends Component {
 			players: this.state.players,
 			showAnswer: false
 		});
+		var r = this;
+		this.socket.emit('newQuestion', r.state.roomId ,r.state.quiz.questions[r.state.currentQuestionNumber].question);
+
 		return true;
 	  }
 	  

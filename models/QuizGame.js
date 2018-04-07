@@ -27,6 +27,8 @@ var codeArr = ["bitch"];
     gameSocket.on('startTimer', hostStartTimer);
     gameSocket.on('stopTimer', hostStopTimer);
     gameSocket.on('checkRoomId', checkRoomId);
+    gameSocket.on('newQuestion', sendPlayerQuestion);
+    gameSocket.on('gameOver', notifyPlayersGameOver);
 
 }
 
@@ -109,6 +111,14 @@ function checkRoomId(data, fn){
         fn({valid:false});
     }
 
+}
+
+function sendPlayerQuestion(roomId, question){
+    io.sockets.in(roomId).emit('newQuestion', question);
+}
+
+function notifyPlayersGameOver (roomId, playerName, points){
+    io.sockets.in(roomId).emit('gameOver' + playerName, points);
 }
 
 

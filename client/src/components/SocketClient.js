@@ -30,14 +30,13 @@ class SocketClient extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    const body = e.target.value;
-    console.log(body);
 
     var data = {
     // needs to be elements from the forms, not random data
-      roomId : this.state.roomId,
+      roomId : this.state.roomId.toUpperCase(),
       playerName : this.state.playerName
     };
+    console.log(data);
 
     // Send the gameId and playerName to the server
     var isValid;
@@ -47,7 +46,7 @@ class SocketClient extends Component {
       if(data.valid){
         // show the button linked to the socket
         // console.log("VALID");
-        r.props.history.push("/play/" + r.state.roomId + "/@" + r.state.playerName);
+        r.props.history.push("/play/" + r.state.roomId.toUpperCase() + "/@" + r.state.playerName);
 
       } else {
         console.log("NOT VALID");
