@@ -63,10 +63,14 @@ class PlayerRoom extends Component {
     }
     this.setState({pushButton: false});
     this.setState({toTimer: true});
+    setTimeout(function(){
+      this.setState({toTimer: false});
+    }.bind(this),5000); 
   }
 
   showButton(){
     this.setState({toTimer: false});
+
   }
 
   render() {
