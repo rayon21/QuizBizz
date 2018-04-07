@@ -3,18 +3,32 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';	
 import NavBar from './NavBar.js';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 class QuizzesPage extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			quizzes: []
+			quizzes: [],
+			showDeleteConfirmation: false,
+			quizIdToBeDeleted: '',
+			quizNameToBeDeleted: ''
 		}
 	}
 
 	componentDidMount() {
+		this.getQuizzes();
+	}
+
+	getQuizzes = () => {
 		const token = localStorage.getItem('token');
 		axios.get('/api/quizzes/', {
 			headers: {
@@ -24,6 +38,26 @@ class QuizzesPage extends Component {
 			this.setState({quizzes: res.data.quizzes});
 		});
 	}
+
+	deleteQuiz = () => {
+		const token = localStorage.getItem('token');
+		this.handleClose();
+		axios.delete('/api/quizzes/' + this.state.quizIdToBeDeleted, {
+			headers: {
+				"x-auth": token
+			}
+		}).then((res) => {
+			console.log(res.data);
+			this.getQuizzes();
+		})
+	}
+
+	open = (e, id, title) => {
+		e.preventDefault();
+		this.setState({showDeleteConfirmation: true, quizIdToBeDeleted: id, quizNameToBeDeleted: title})
+	}
+
+	handleClose = () => {this.setState({showDeleteConfirmation: false})}
 
 	renderQuizzes() {
 		return this.state.quizzes.map((quiz) => {
@@ -44,8 +78,9 @@ class QuizzesPage extends Component {
 			          	<Link to={`/room/${quiz._id}`}>
 			          		<button className="btn btn-primary mt-3">Start</button>
 			          	</Link>
-									<Link to={edit}>
-			          		<button className="btn btn-primary mt-3 float-right">Edit</button>
+			          	<a href="" className="mt-3 float-right ml-3" onClick={(e) => this.open(e, quiz._id, quiz.title)}>Delete</a>
+						<Link to={edit} className="mt-3 float-right">
+			          		Edit
 			          	</Link>
 			        </CardContent>
 			      </Card>
@@ -65,7 +100,27 @@ class QuizzesPage extends Component {
 				<div className="mt-3 mb-5">
 					{this.renderQuizzes()}
 				</div>
-			</div>
+			</div>,
+			<Dialog
+	          open={this.state.open}
+          	  onClose={this.handleClose}
+	          open={this.state.showDeleteConfirmation}
+	        >
+	        	<DialogTitle id="alert-dialog-title">Are you sure?</DialogTitle>
+         		<DialogContent>
+	            <DialogContentText id="alert-dialog-description">
+	            	{this.state.quizNameToBeDeleted} will be permanently deleted.
+	            </DialogContentText>
+	          </DialogContent>
+	          <DialogActions>
+	            <Button onClick={this.handleClose} color="primary">
+	              Cancel
+	            </Button>
+	            <Button onClick={this.deleteQuiz} color="primary" autoFocus>
+	              Delete
+	            </Button>
+	          </DialogActions>
+	        </Dialog>
 		];
 	}
 }
