@@ -103,7 +103,6 @@ class QuizzesPage extends Component {
 			</div>,
 			<Dialog
 			  key="popup"
-	          open={this.state.open}
           	  onClose={this.handleClose}
 	          open={this.state.showDeleteConfirmation}
 	        >

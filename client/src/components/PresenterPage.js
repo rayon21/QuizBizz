@@ -239,8 +239,8 @@ class PresenterPage extends Component {
       						{this.state.showAnswer ? <Question question={this.state.currentAnswer}/> : undefined}
 							{this.renderAnswerQueue()}
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-between">
-								<button className="btn btn-success btn-lg col mr-4" onClick={this.correctAnswer}>✅</button>
-								<button className="btn btn-danger btn-lg col mr-4" onClick={this.nextPlayer}>❌</button>
+								<button className="btn btn-success btn-lg col mr-4" onClick={this.correctAnswer}><span aria-label="correct" role="img">✅</span></button>
+								<button className="btn btn-danger btn-lg col mr-4" onClick={this.nextPlayer}><span aria-label="wrong" role="img">❌</span></button>
 								<button className="btn btn-info btn-lg col mr-4" onClick={this.showAnswer}>Show answer</button>
 								<button className="btn btn-warning btn-lg col mr-4" onClick={this.nextQuestion}>Skip</button>
 								<button className="btn btn-primary btn-lg col " onClick={this.handleStartTimer}>Start Timer</button>

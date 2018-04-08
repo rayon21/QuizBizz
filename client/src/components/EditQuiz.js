@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import QuestionInput from './QuestionInput.js';
 import NavBar from './NavBar.js'
-import Card, { CardContent } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
 
 class EditQuiz extends Component {
 
