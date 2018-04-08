@@ -70,8 +70,8 @@ class CreateQuizPage extends Component {
 
 	render() {
 		return ([
-			<NavBar history={this.props.history}/>,
-			<div className="container mt-5">
+			<NavBar history={this.props.history} key="nav"/>,
+			<div className="container mt-5" key="container">
 				<h1>New Quiz</h1>
 				<TextField
 					      fullWidth
