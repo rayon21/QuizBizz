@@ -24,7 +24,7 @@ class RegistrationPage extends Component {
 									<img src={process.env.PUBLIC_URL + '/fireworks.png'} alt="quiz icon"/>
 									<h4 className="text-white">Have fun</h4>
 								</div>
-								<Link to="/join">
+								<Link to="/join" className="mb-4">
 									<h2 className="join-room-button text-center">JOIN A ROOM HERE</h2>
 								</Link>
 							</div>

@@ -11,7 +11,8 @@ class EditQuiz extends Component {
 			title: '',
 			description: '',
             questions: [],
-            quiz: {}
+            quiz: {
+            }
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.addQuestion = this.addQuestion.bind(this);
@@ -30,16 +31,29 @@ class EditQuiz extends Component {
     }
 
 	handleSubmit(e) {
-		const token = localStorage.getItem('token');
-		axios.post('/api/quizzes', {
-			title: this.state.title,
-			description: this.state.description,
-			questions: this.state.questions
-		}, {headers: {
-			'x-auth': token
-		}}).then((res) => {
-			this.props.history.push("/quiz/" + res.data._id);
-		});
+		//move questions into the quiz questions
+		const updatedQuiz = Object.assign({}, this.state.quiz);
+		updatedQuiz.questions = this.state.questions;
+		console.log('updated quiz:');
+		this.setState({quiz: updatedQuiz}, this.patchQuiz);
+	}
+
+	patchQuiz = () => {
+		setTimeout(() => {
+			console.log('patching');
+			const token = localStorage.getItem('token');
+			let id = window.location.pathname.split("/")[2];
+			console.log("THIS FUCKER", this.state.quiz);
+			axios.patch('/api/quizzes/' + id, {
+				quiz: this.state.quiz
+			}, {headers: {
+				'x-auth': token
+			}}).then((res) => {
+				console.log("changed and pushed");
+				//this.props.history.push("/quiz/" + id);
+			});
+		}, 3000)
+		
 	}
 
 	handleChange = name => event => {
@@ -58,32 +72,34 @@ class EditQuiz extends Component {
 	}
 
 	updateQuestion(key, question) {
+		console.log(key, question, "updating quesiton");
+		var found = false;
 		var newQuestions = this.state.questions.map(el => {
 			if (el.key === key) {
+				found = true;
 				return Object.assign({}, el, question);
 			}
 			return el
 		});
-		this.setState({questions: newQuestions});
+		if (!found) {
+			this.setState(prevState => ({
+				questions: [...prevState.questions, question]
+			}))
+		} else {
+			this.setState({questions: newQuestions});
+		}
 	}
 
 	removeQuestion = (id) => {
 		this.setState({questions: this.state.questions.filter(e=>e.key!==id)});
 	}
 
-	renderPreQuestions()  {
-        if (!this.state.quiz.questions) {
+    renderQuestions = () => {
+    	if (!this.state.quiz.questions) {
+    		console.log('hd');
 			return undefined;
 		}
-		return this.state.quiz.questions.map((question, index) => {
-			return (
-				<QuestionInput number={index + 1} key={question.key} id={question.key} question={question} updateQuestion={this.updateQuestion} removeQuestion={this.removeQuestion}/>
-			)
-		})
-    }
-
-    renderQuestions() {
-		return this.state.questions.map((question, i) => {
+		return this.state.quiz.questions.map((question, i) => {
 			return (
 				<QuestionInput number={i + 1} key={question.key} id={question.key} question={question} updateQuestion={this.updateQuestion} removeQuestion={this.removeQuestion}/>
 			)
@@ -93,13 +109,12 @@ class EditQuiz extends Component {
 	render() {
         const {title, description} = this.state.quiz;
 		return ([
-			<NavBar history={this.props.history}/>,
-			<div className="container mt-5">
+			<NavBar history={this.props.history} key="nav"/>,
+			<div className="container mt-5" key="container">
 				<h1 className="mt-5">{title}</h1>
 				<p>{description}</p>
 				
 				<div className="container">
-                    {this.renderPreQuestions()}
                     {this.renderQuestions()}
 				</div>
 				<div className="row mt-4">

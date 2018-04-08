@@ -61,11 +61,11 @@ class SocketClient extends Component {
     const { validId } = this.state;
     var errColor = {color:"red"};
     return ([
-      <Header/>,
-      <div style={{ textAlign: "center" }} className="joinRoomBox room-code-bg">
+      <Header key="header"/>,
+      <div style={{ textAlign: "center" }} className="joinRoomBox room-code-bg" key="container">
 
         <div className="pt-5 container d-flex col-md-12 justify-content-center">
-        <div className="col-sm-4 pb-3 pt-4 mb-3 room-code-container">
+        <div className="col-md-8 col-lg-6 pb-3 pt-4 mb-3 room-code-container mt-5">
           <h3>Join a Quiz</h3>
           <form action="" className="mb-3 mr-4 ml-4">
             <TextField

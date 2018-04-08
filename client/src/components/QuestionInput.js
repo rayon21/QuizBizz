@@ -12,7 +12,8 @@ class QuestionInput extends Component {
 	handleChange(e) {
 		const questionAnswer = {
 			question: this.refs.questionText.value,
-			answer: this.refs.answerText.value
+			answer: this.refs.answerText.value,
+			key: this.props.id
 		}
 		this.props.updateQuestion(this.props.id, questionAnswer);
 		console.log('key is ' + this.props.id);
@@ -23,8 +24,12 @@ class QuestionInput extends Component {
 		this.props.removeQuestion(this.props.id);
 	}
 
-	didComponentMount() {
+	componentWillReceiveProps() {
 		this.setState({question: this.props.question});
+	}
+	componentDidMount() {
+		this.refs.questionText.value = this.props.question.question;
+		this.refs.answerText.value = this.props.question.answer;
 	}
 
 	render() {
