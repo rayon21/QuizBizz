@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.js';
-import Question from './Game/Question.js';
-import io from "socket.io-client";
 import axios from 'axios';
 
 class GameOver extends Component {

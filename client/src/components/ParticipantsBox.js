@@ -46,8 +46,6 @@ class PlayerRoom extends Component {
     const people = this.state.participants.map(function(participant, index){
       return <li key={index}><b>{participant}</b> -> is here. </li>
     });
-    const { validId } = this.state;
-    var errColor = {color:"red"};
     return (
       <div style={{ textAlign: "center" }}>
 
