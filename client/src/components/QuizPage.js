@@ -52,8 +52,8 @@ class QuizPage extends Component {
 
 		const {title, description} = this.state.quiz;
 		return ([
-			<NavBar history={this.props.history}/>,
-			<div className="container">
+			<NavBar history={this.props.history} key="navbar"/>,
+			<div className="container" key="divcontainer">
 				<h1 className="mt-5">{title}</h1>
 				<p>{description}</p>
 				<div className="row">

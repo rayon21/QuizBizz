@@ -52,7 +52,7 @@ class RegistrationBox extends Component {
 			//login user (give them token)
 			localStorage.setItem('token', res.headers['x-auth']);
 		}).then(() => {
-			<this className="props history"></this>.push("/quizzes");
+			this.props.history.push("/quizzes");
 		}).catch((e) => {
 			this.setState({error: true});
 			this.setState({loading: false});
@@ -108,7 +108,7 @@ class RegistrationBox extends Component {
 					    <div className="text-right">
 					    	<button className="btn btn-primary mt-4 mb-3 d-flex align-items-center reg-button" onClick={this.register}>
 					    		{ this.state.loading ?
-					    			<CircularProgress size={24} className="loading" color="white"/> :
+					    			<CircularProgress size={24} className="loading"/> :
 					    			"Register"
 					    		}
 					    	</button>

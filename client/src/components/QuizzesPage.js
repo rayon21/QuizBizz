@@ -91,8 +91,8 @@ class QuizzesPage extends Component {
 
 	render() {
 		return [
-			<NavBar history={this.props.history}/>,
-			<div className="container mt-5">
+			<NavBar history={this.props.history} key="navbar"/>,
+			<div className="container mt-5" key="quiz-container">
 				<h1>My Quizzes</h1>
 				<div className="d-flex justify-content-end">
 					<Link to="/create"><button className="btn btn-primary">Create new quiz</button></Link>
@@ -102,6 +102,7 @@ class QuizzesPage extends Component {
 				</div>
 			</div>,
 			<Dialog
+			  key="popup"
 	          open={this.state.open}
           	  onClose={this.handleClose}
 	          open={this.state.showDeleteConfirmation}
