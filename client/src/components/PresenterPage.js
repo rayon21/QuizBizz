@@ -131,8 +131,8 @@ class PresenterPage extends Component {
 	  }
 	  
 	nextPlayer = () => {
-		let audio = document.getElementById("wrong");
-        audio.play(); 
+		// let audio = document.getElementById("wrong");
+        // audio.play(); 
 		this.handleStopTimer();
 	 	if(this.state.answerQueue.length > 0){
 			this.state.answerQueue.splice(0,1);
@@ -214,7 +214,7 @@ class PresenterPage extends Component {
 			<NavBar history={this.props.history}/>,
 			<div className="container">
 				<div className="row mt-5">
-					<div className="col-md-3">
+					<div className="col-md-3 col-5 ">
 						<div className="card">
 							<div className="card-body">
 								<h5 className="">ROOM CODE: <b>{this.state.roomId}</b></h5>
@@ -233,22 +233,21 @@ class PresenterPage extends Component {
 							</ul>
 						</div>
 					</div>
-					<div className="col-md-9">
-						<div className="container">
-      						<Question question={this.state.currentQuestion} key="x"/>
-      						{this.state.showAnswer ? <Question question={this.state.currentAnswer}/> : undefined}
-							{this.renderAnswerQueue()}
+					<div className="col-md-9 col-7 ">
+							<div className="col-12">
+								<Question question={this.state.currentQuestion} key="x"/>
+								{this.state.showAnswer ? <Question question={this.state.currentAnswer}/> : undefined}
+								{this.renderAnswerQueue()}
+							</div>
 							<div className="right-wrong-buttons mt-4 d-flex justify-content-between">
-								<button className="btn btn-success btn-lg col mr-4" onClick={this.correctAnswer}>✅</button>
-								<button className="btn btn-danger btn-lg col mr-4" onClick={this.nextPlayer}>❌</button>
-								<button className="btn btn-info btn-lg col mr-4" onClick={this.showAnswer}>Show answer</button>
-								<button className="btn btn-warning btn-lg col mr-4" onClick={this.nextQuestion}>Skip</button>
-								<button className="btn btn-primary btn-lg col " onClick={this.handleStartTimer}>Start Timer</button>
-								<audio id="wrong" ><source src="http://www.orangefreesounds.com/wp-content/uploads/2014/08/Wrong-answer-sound-effect.mp3?_=1" type="audio/mpeg" /></audio>
+								<button className="btn btn-success btn-md col mr-4" onClick={this.correctAnswer}>✅</button>
+								<button className="btn btn-danger btn-md col mr-4" onClick={this.nextPlayer}>❌</button>
+								<button className="btn btn-info btn-md col mr-4" onClick={this.showAnswer}>Show answer</button>
+								<button className="btn btn-warning btn-md col mr-4" onClick={this.nextQuestion}>Skip</button>
+								<button className="btn btn-primary btn-md col " onClick={this.handleStartTimer}>Start Timer</button>
 								<audio id="correct" ><source src={correctSound} type="audio/mpeg" /></audio>
 								<audio id="wrong" ><source src={wrongSound} type="audio/mpeg" /></audio>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
