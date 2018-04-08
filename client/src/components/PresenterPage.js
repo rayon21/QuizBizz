@@ -244,7 +244,6 @@ class PresenterPage extends Component {
 								<Question question={this.state.currentQuestion} key="x"/>
 								{this.state.showAnswer ? <Question question={this.state.currentAnswer}/> : undefined}
 								{this.renderAnswerQueue()}
-							</div>
 								<button className="btn btn-success btn-md col mr-4" onClick={this.correctAnswer}><span aria-label="correct" role="img">✅</span></button>
 								<button className="btn btn-danger btn-md col mr-4" onClick={this.nextPlayer}><span aria-label="wrong" role="img">❌</span></button>
 								<button className="btn btn-info btn-md col mr-4" onClick={this.showAnswer}>Show answer</button>
