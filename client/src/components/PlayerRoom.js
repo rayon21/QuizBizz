@@ -131,7 +131,7 @@ class PlayerRoom extends Component {
           </div>
           </div> */}
         <div className="vertical-center text-center">
-              <h1> {this.state.currentQuestion} </h1>
+              <h1 className="text-white"> {this.state.currentQuestion} </h1>
               <button type="submit" disabled={pushButton?false:true} className={pushButton ? "buzzer buzzer-green": "buzzer buzzer-red"}  onClick={this.handleSubmit}>BUZZ</button>
             
         </div>

@@ -124,7 +124,7 @@ class PresenterPage extends Component {
 			players: this.state.players,
 			showAnswer: false
 		});
-		var r = this;
+		r = this;
 		this.socket.emit('newQuestion', r.state.roomId ,r.state.quiz.questions[r.state.currentQuestionNumber].question);
 
 		return true;
@@ -158,7 +158,13 @@ class PresenterPage extends Component {
 		// add points to first element in the list
 	    if(this.state.answerQueue.length > 0){
 			var index = this.state.players.map(function(e) { return e.playerName;}).indexOf(this.state.answerQueue[0]);
-			this.state.players[index].points += 1;
+			const updatedPlayer = this.state.players[index];
+			updatedPlayer.points++;
+			this.setState({players: [
+				...this.state.players.slice(0, index),
+				updatedPlayer,
+				...this.state.players.slice(index + 1)
+				]})
 		} 
 
 		this.nextQuestion();

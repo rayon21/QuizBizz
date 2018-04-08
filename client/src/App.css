@@ -263,7 +263,7 @@ nav {
 .buzzer-red {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e8543f), color-stop(100%, #d9331a));
   background: -webkit-linear-gradient(to top, #e8543f, #d9331a);
-  background: -moz-linear-gradient(to op, #e8543f, #d9331a);
+  background: -moz-linear-gradient(to top, #e8543f, #d9331a);
   background: -o-linear-gradient(to top, #e8543f, #d9331a);
   background: linear-gradient(to top, #e8543f, #d9331a);
   background-color: #e54028;
@@ -278,7 +278,7 @@ nav {
   background: -webkit-linear-gradient(to top, #eb6855, #d9331a);
   background: -moz-linear-gradient(to top, #eb6855, #d9331a);
   background: -o-linear-gradient(to top, #eb6855, #d9331a);
-  background: linear-gradient(to op, #eb6855, #d9331a);
+  background: linear-gradient(to top, #eb6855, #d9331a);
 }
 
 .timer{
