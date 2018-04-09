@@ -43,7 +43,6 @@ class EditQuiz extends Component {
 			console.log('patching');
 			const token = localStorage.getItem('token');
 			let id = window.location.pathname.split("/")[2];
-			console.log("THIS FUCKER", this.state.quiz);
 			axios.patch('/api/quizzes/' + id, {
 				quiz: this.state.quiz
 			}, {headers: {
