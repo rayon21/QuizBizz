@@ -27,6 +27,7 @@ class EditQuiz extends Component {
 			}
 		}).then((res) => {
 			this.setState({quiz: res.data.quiz});
+			this.setState({questions: res.data.quiz.questions})
 		});
     }
 
@@ -39,19 +40,19 @@ class EditQuiz extends Component {
 	}
 
 	patchQuiz = () => {
+		//timeout for any slow setState... uh refactor later
 		setTimeout(() => {
 			console.log('patching');
 			const token = localStorage.getItem('token');
 			let id = window.location.pathname.split("/")[2];
 			axios.patch('/api/quizzes/' + id, {
-				quiz: this.state.quiz
+				questions: this.state.quiz.questions
 			}, {headers: {
 				'x-auth': token
 			}}).then((res) => {
-				console.log("changed and pushed");
-				//this.props.history.push("/quiz/" + id);
+				this.props.history.push("/quiz/" + id);
 			});
-		}, 3000)
+		}, 100)
 		
 	}
 
@@ -67,7 +68,7 @@ class EditQuiz extends Component {
 			question: '',
 			answer: ''
 		}
-		this.setState({questions: this.state.questions.concat(newQuestion)});
+		this.setState((prevState) => ({quiz: {questions: [...prevState.quiz.questions, newQuestion]}}));
 	}
 
 	updateQuestion(key, question) {
