@@ -61,18 +61,6 @@ class PlayerRoom extends Component {
         score: points
       });
     });
-
-    this.socket.on('playerStartTimer', function(){
-      r.setState({
-        toTimer: true
-      });
-    });
-
-    this.socket.on('playerStopTimer', function(){
-      r.setState({
-        toTimer: false
-      });
-    });
   }
 
   handleChange = name => event => {
