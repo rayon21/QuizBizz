@@ -72,7 +72,7 @@ class EditQuiz extends Component {
 	}
 
 	updateQuestion(key, question) {
-		console.log(key, question, "updating quesiton");
+		//console.log(key, question, "updating quesiton");
 		var found = false;
 		var newQuestions = this.state.questions.map(el => {
 			if (el.key === key) {

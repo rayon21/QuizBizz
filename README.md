@@ -6,6 +6,22 @@ A real time game that will makes classrooms more fun. You can sign up and create
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+## Running with Vagrant
+
+How to start VM
+```
+vagrant up
+```
+
+Available on URL
+```
+http://localhost:5622                (locally)
+http://csil-cpu470.csil.sfu.ca:5622/ (SFU Server)
+```
+
+Server runs on port 5622
+Database runs on port 3711
+
 ### Prerequisites
 
 Node JS needs to be installed
@@ -40,24 +56,13 @@ Start the server
 node server
 ```
 
-## Deployment
-
-Available on URL
-```
-http://localhost:8888                (locally)
-http://csil-cpu470.csil.sfu.ca:5622/ (SFU Server)
-```
-How to start VM
-```
-vagrant up
-```
 ## Comments
 How to Play
 
 Teacher (Host)                       
 
 1. Register / Login                   
-2. Create Quiz 						  
+2. Create/Edit/Delete Quizzes						  
 3. Start Quiz / Share Room Code		  
 4. Enable Buzzer Every Question		  
 

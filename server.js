@@ -11,15 +11,13 @@ var {authenticate} = require('./middleware/authenticate');
 const {ObjectID} = require('mongodb');
 
 var app = express();
-const port = process.env.PORT || 8888;
+const port = process.env.PORT || 5622;
 
 //middleware used to extract body of post request
 app.use(bodyParser.json());
 
 app.use(function (err, req, res, next) {
-  console.log("fadddkj");
   if (err.name === 'UnauthorizedError') {
-    console.log("fadkj");
     res.redirect(401, '/login');
     res.end();
   }
