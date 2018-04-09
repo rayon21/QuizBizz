@@ -142,7 +142,7 @@ app.delete('/api/quizzes/:id', authenticate, (req, res) => {
 app.patch('/api/quizzes/:id', authenticate, (req, res) => {
   console.log("PATCHED");
   var id = req.params.id;
-  var body = _.pick(req.body, ['title', 'completed', 'participants']);
+  var body = _.pick(req.body, ['title', 'completed', 'participants','questions']);
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
