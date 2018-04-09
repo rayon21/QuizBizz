@@ -17,9 +17,7 @@ const port = process.env.PORT || 5622;
 app.use(bodyParser.json());
 
 app.use(function (err, req, res, next) {
-  console.log("fadddkj");
   if (err.name === 'UnauthorizedError') {
-    console.log("fadkj");
     res.redirect(401, '/login');
     res.end();
   }

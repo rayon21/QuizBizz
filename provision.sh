@@ -40,4 +40,5 @@ cd ../../home/ubuntu/project
 npm install
 
 echo "Starting mongodb server"
-mongod --port 3711 & npm run server
+nohup mongod --port 3711 &
+nohup npm run server
