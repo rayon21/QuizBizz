@@ -233,7 +233,7 @@ class PresenterPage extends Component {
 						</div>
 						<div className="players-list mt-4">
 							<h3 className="mb-3">Players</h3>
-							<ul className="list-group">
+							<ul className="list-group ">
 							  {this.state.players.length === 0 ? (<span className='grey-text'>There are currently no players</span>) : undefined}
 							  {this.renderPlayerList()}
 							</ul>
@@ -244,13 +244,17 @@ class PresenterPage extends Component {
 								<Question question={this.state.currentQuestion} key="x"/>
 								{this.state.showAnswer ? <Question question={this.state.currentAnswer}/> : undefined}
 								{this.renderAnswerQueue()}
-								<button className="btn btn-success btn-md col mr-4" onClick={this.correctAnswer}><span aria-label="correct" role="img">✅</span></button>
-								<button className="btn btn-danger btn-md col mr-4" onClick={this.nextPlayer}><span aria-label="wrong" role="img">❌</span></button>
-								<button className="btn btn-info btn-md col mr-4" onClick={this.showAnswer}>Show answer</button>
+								<div className="right-wrong-buttons mt-4 d-flex justify-content-between">
+								<button className="btn btn-success btn-md col mr-4 " onClick={this.correctAnswer}><span aria-label="correct" role="img">✅</span></button>
+								<button className="btn btn-danger btn-md col mr-4 " onClick={this.nextPlayer}><span aria-label="wrong" role="img">❌</span></button>
+								</div>
+								<div className="right-wrong-buttons mt-4 d-flex justify-content-between ">
+								<button className="btn btn-info btn-md col mr-4" onClick={this.showAnswer}>Answer</button>
 								<button className="btn btn-warning btn-md col mr-4" onClick={this.nextQuestion}>Skip</button>
-								<button className="btn btn-primary btn-md col " onClick={this.handleStartTimer}>Start Timer</button>
+								<button className="btn btn-primary btn-md col " onClick={this.handleStartTimer}>Timer</button>
 								<audio id="correct" ><source src={correctSound} type="audio/mpeg" /></audio>
 								<audio id="wrong" ><source src={wrongSound} type="audio/mpeg" /></audio>
+								</div>
 							</div>
 					</div>
 				</div>
