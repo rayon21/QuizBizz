@@ -30,11 +30,14 @@ fi
 
 echo "Printing Current"
 echo $PWD
-echo "Printing one directory up"
-cd ../ubuntu
-mkdir test
-cd test
-#git clone https://csil-git1.cs.surrey.sfu.ca/raymonde/CMPT470-Quiz.git
-#cd CMPT470-Quiz
-mongod --port 3711
-#npm run server
+
+cd ..
+cd ..
+mkdir data
+cd data
+mkdir db
+cd ../../home/ubuntu/project
+npm install
+
+echo "Starting mongodb server"
+mongod --port 3711 & npm run server

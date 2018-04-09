@@ -23,6 +23,7 @@
     "lodash": "^4.17.5",
     "mongodb": "^3.0.4",
     "mongoose": "^5.0.10",
+    "nodemon": "^1.17.3",
     "react-bootstrap": "^0.32.1",
     "socket.io": "^2.0.4",
     "validator": "^9.4.1"
