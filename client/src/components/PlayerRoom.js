@@ -49,6 +49,17 @@ class PlayerRoom extends Component {
       });
     });
 
+    this.socket.on('playerStartTimer', function(){
+      r.setState({
+        toTimer: true
+      });
+    });
+
+    this.socket.on('playerStopTimer', function(){
+      r.setState({
+        toTimer: false
+      });
+    });
     this.socket.on('newQuestion', function(question){
       r.setState({
         currentQuestion: question
