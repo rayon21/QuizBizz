@@ -17,7 +17,7 @@ Available on URL
 ```
 http://localhost:5622                (locally)
 http://csil-cpu470.csil.sfu.ca:5622/ (SFU Server)
-http://quizzbizz470.herokuapp.com/ (Heroku just in case)
+https://quizbizz470.herokuapp.com/ (Heroku just in case)
 ```
 
 Server runs on port 5622, 
