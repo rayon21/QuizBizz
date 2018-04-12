@@ -119,21 +119,23 @@ class RegistrationBox extends Component {
 					    			"Register"
 					    		}
 					    	</button>
+							<GoogleLogin
+								clientId="579211846330-l8soqngrb75ud77bt7l70n37hk8vpj5c.apps.googleusercontent.com"
+								buttonText="Login"
+								onSuccess={this.responseGoogle}
+								onFailure={this.responseGoogle}
+							/>
+
 							<FacebookLogin
-								appId="1088597931155576"
+								appId="260149824553966"
 								autoLoad={true}
 								fields="name,email,picture"
 								callback={this.responseFacebook}
 								cssClass="my-facebook-button-class"
 								icon="fa-facebook"
-							/>,
-
-							<GoogleLogin
-								clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-								buttonText="Login"
-								onSuccess={this.responseGoogle}
-								onFailure={this.responseGoogle}
 							/>
+
+							
 							
 					    </div>
 					</form>
