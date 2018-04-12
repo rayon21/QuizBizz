@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
-import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
+import {GoogleLogin} from 'react-google-login';
+// import FacebookLogin from 'react-facebook-login';
 
 var validator = require('validator');
 
@@ -22,8 +22,9 @@ class RegistrationBox extends Component {
 		this.handlePassword = this.handlePassword.bind(this);
 		this.register = this.register.bind(this);
 		this.validPassword = this.validatePassword.bind(this);
-		this.responseFacebook = this.responseFacebook.bind(this);
-		this.responseGoogle = this.responseGoogle.bind(this);
+		//this.responseFacebook = this.responseFacebook.bind(this);
+		this.successGoogle = this.successGoogle.bind(this);
+		this.errorGoogle = this.errorGoogle.bind(this);
 	}
 
 	handleEmail(e) {
@@ -77,19 +78,29 @@ class RegistrationBox extends Component {
 		});
 	}
 
-	responseFacebook = (response) => {
-		console.log("facebook console");
-		console.log(response);
-		this.register();
-	  }
+	// responseFacebook = (response) => {
+	// 	console.log("facebook console");
+	// 	console.log(response);
+	// 	this.register();
+	//   }
 
-	responseGoogle = (response) => {
-		console.log("google console");
+	successGoogle = (response) => {
+		console.log("success");
 		console.log(response);
-		this.register();
+		
+	}
+
+	errorGoogle = (response) => {
+		console.log("error");
+		console.log(response);
+		
 	}
 
 	render() {
+		const loading = () => {
+			console.log('loading')
+		  }
+
 		return (
 			<div className="d-flex pr-5 pl-5 flex-column">
 				<div className="col-sm-12 pb-3 pt-4 mb-4 reg-container">
@@ -125,19 +136,24 @@ class RegistrationBox extends Component {
 					    	</button>
 							<GoogleLogin
 								clientId="579211846330-l8soqngrb75ud77bt7l70n37hk8vpj5c.apps.googleusercontent.com"
-								buttonText="Login"
-								onSuccess={this.responseGoogle}
-								onFailure={this.responseGoogle}
+								scope="https://www.googleapis.com/auth/plus.login"
+								buttonText="G Login"
+								onSuccess={this.successGoogle}
+								onFailure={this.errorGoogle}
+								onRequest={loading}
+								offline={false}
+								responseType="code"
+								isSignedIn
 							/>
 
-							<FacebookLogin
+							{/* <FacebookLogin
 								appId="260149824553966"
 								autoLoad={true}
 								fields="name,email,picture"
 								callback={this.responseFacebook}
 								cssClass="my-facebook-button-class"
 								icon="fa-facebook"
-							/>
+							/> */}
 
 							
 							
