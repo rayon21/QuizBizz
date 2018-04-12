@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
-//import { GoogleLogin } from 'react-google-login';
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
 var validator = require('validator');
 
@@ -21,6 +22,8 @@ class RegistrationBox extends Component {
 		this.handlePassword = this.handlePassword.bind(this);
 		this.register = this.register.bind(this);
 		this.validPassword = this.validatePassword.bind(this);
+		this.responseFacebook = this.responseFacebook.bind(this);
+		this.responseGoogle = this.responseGoogle.bind(this);
 	}
 
 	handleEmail(e) {
@@ -74,9 +77,13 @@ class RegistrationBox extends Component {
 		});
 	}
 
-	// responseGoogle = (response) => {
-	// 	console.log(response);
-	// }
+	responseFacebook = (response) => {
+		console.log(response);
+	  }
+
+	responseGoogle = (response) => {
+		console.log(response);
+	}
 
 	render() {
 		return (
@@ -112,13 +119,21 @@ class RegistrationBox extends Component {
 					    			"Register"
 					    		}
 					    	</button>
-							{/* <GoogleLogin
-								clientId="client_id"
-								scope='profile email https://www.googleapis.com/auth/youtube'
+							<FacebookLogin
+								appId="1088597931155576"
+								autoLoad={true}
+								fields="name,email,picture"
+								callback={this.responseFacebook}
+								cssClass="my-facebook-button-class"
+								icon="fa-facebook"
+							/>,
+
+							<GoogleLogin
+								clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
 								buttonText="Login"
 								onSuccess={this.responseGoogle}
 								onFailure={this.responseGoogle}
-							/> */}
+							/>
 							
 					    </div>
 					</form>
