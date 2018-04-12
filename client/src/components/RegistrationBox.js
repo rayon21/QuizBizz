@@ -78,11 +78,15 @@ class RegistrationBox extends Component {
 	}
 
 	responseFacebook = (response) => {
+		console.log("facebook console");
 		console.log(response);
+		this.register();
 	  }
 
 	responseGoogle = (response) => {
+		console.log("google console");
 		console.log(response);
+		this.register();
 	}
 
 	render() {
