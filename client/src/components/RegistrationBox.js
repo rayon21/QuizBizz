@@ -88,6 +88,23 @@ class RegistrationBox extends Component {
 		console.log("success");
 		console.log(response);
 		
+		
+
+		// this.setState({loading: true});
+		
+		// axios.post('/users', {
+		// 	email: this.state.email,
+		// 	password: this.state.password
+		// }).then((res) => {
+		// 	this.setState({loading: false});
+		// 	//login user (give them token)
+		// 	localStorage.setItem('token', res.headers['x-auth']);
+		// }).then(() => {
+		// 	this.props.history.push("/quizzes");
+		// }).catch((response) => {
+		// 	this.setState({error: true});
+		// 	this.setState({loading: false});
+		// });
 	}
 
 	errorGoogle = (response) => {
@@ -143,7 +160,7 @@ class RegistrationBox extends Component {
 								onRequest={loading}
 								offline={false}
 								responseType="code"
-								isSignedIn
+								isSignedIn = "true"
 							/>
 
 							{/* <FacebookLogin
