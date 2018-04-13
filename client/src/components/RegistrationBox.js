@@ -87,24 +87,7 @@ class RegistrationBox extends Component {
 	successGoogle = (response) => {
 		console.log("success");
 		console.log(response);
-		
-		
-
-		// this.setState({loading: true});
-		
-		// axios.post('/users', {
-		// 	email: this.state.email,
-		// 	password: this.state.password
-		// }).then((res) => {
-		// 	this.setState({loading: false});
-		// 	//login user (give them token)
-		// 	localStorage.setItem('token', res.headers['x-auth']);
-		// }).then(() => {
-		// 	this.props.history.push("/quizzes");
-		// }).catch((response) => {
-		// 	this.setState({error: true});
-		// 	this.setState({loading: false});
-		// });
+		this.setState({loading: true});	
 	}
 
 	errorGoogle = (response) => {
@@ -154,7 +137,7 @@ class RegistrationBox extends Component {
 							<GoogleLogin
 								clientId="579211846330-l8soqngrb75ud77bt7l70n37hk8vpj5c.apps.googleusercontent.com"
 								scope="https://www.googleapis.com/auth/plus.login"
-								buttonText="G Login"
+								buttonText="G+ Login"
 								onSuccess={this.successGoogle}
 								onFailure={this.errorGoogle}
 								onRequest={loading}
