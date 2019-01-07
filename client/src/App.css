@@ -1,5 +1,8 @@
+
+
 .App {
   text-align: center;
+  line-height: 0;
 }
 
 .App-logo {
@@ -94,6 +97,13 @@ html, body, #root {
 .reg-container h3 {
   font-weight: 300;
   color: #444;
+}
+
+.divider-small {
+  width: 100px;
+  border-top: 1px solid #C4C4C4;
+  margin-bottom: 25px;
+  margin-top: 10px;
 }
 
 /*.reg-container label {
@@ -284,3 +294,4 @@ nav {
 .timer{
   font-size : 8.5em;
 }
+

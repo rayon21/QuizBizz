@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
     "client": "node start-client.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,13 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
     "express": "^4.16.2",
+    "google-auth-library": "^2.0.2",
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.5",
+    "mocha": "^5.2.0",
     "mongodb": "^3.0.4",
     "mongoose": "^5.0.10",
     "nodemon": "^1.17.3",

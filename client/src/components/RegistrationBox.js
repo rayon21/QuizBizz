@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
-//import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 
 var validator = require('validator');
 
@@ -74,9 +74,19 @@ class RegistrationBox extends Component {
 		});
 	}
 
-	// responseGoogle = (response) => {
-	// 	console.log(response);
-	// }
+	success = (res) => {
+		axios.post('/users/auth/google', {
+			tokenId: res.tokenId,
+			accessToken: res.accessToken
+		}).then((res) => {
+			localStorage.setItem('token', res.headers['x-auth']);
+			console.log('token set.');
+			this.props.history.push("/quizzes");
+		}).catch((err) => {
+			console.log(err);
+			//TODO handle rejected token
+		})
+	}
 
 	render() {
 		return (
@@ -105,21 +115,18 @@ class RegistrationBox extends Component {
 					      error={this.state.validPassword || this.state.validPassword == null ? false : true}
 					      helperText={this.state.validPassword || this.state.validPassword == null ? "" : "Password must be 6 characters in length"}
 					    />
-					    <div className="text-right">
+					    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
 					    	<button className="btn btn-primary mt-4 mb-3 d-flex align-items-center reg-button" onClick={this.register}>
 					    		{ this.state.loading ?
 					    			<CircularProgress size={24} className="loading"/> :
 					    			"Register"
 					    		}
 					    	</button>
-							{/* <GoogleLogin
-								clientId="client_id"
-								scope='profile email https://www.googleapis.com/auth/youtube'
-								buttonText="Login"
-								onSuccess={this.responseGoogle}
-								onFailure={this.responseGoogle}
-							/> */}
-							
+					    	<div className="divider-small"></div>
+					    	<GoogleLogin theme="dark"
+							 clientId="919745745086-u1k3o9ibi1tmvlcdvjc5mpud98f0thus.apps.googleusercontent.com"
+							 onSuccess={this.success}
+							/>
 					    </div>
 					</form>
 				</div>

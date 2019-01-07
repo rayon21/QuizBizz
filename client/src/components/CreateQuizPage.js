@@ -79,6 +79,7 @@ class CreateQuizPage extends Component {
 					      label="Title"
 					      margin="normal"
 					      onChange={this.handleChange('title')}
+					      id="input-title"
 				/>
 				<TextField
 					      fullWidth
@@ -86,6 +87,7 @@ class CreateQuizPage extends Component {
 					      label="Description"
 					      margin="normal"
 					      onChange={this.handleChange('description')}
+					      id="input-description"
 				/>
 				
 				<div className="container">
@@ -93,11 +95,11 @@ class CreateQuizPage extends Component {
 				</div>
 				<div className="row mt-4">
 					<div className="col text-center">
-						<button className="btn btn-primary" onClick={this.addQuestion}>Add Question</button>
+						<button className="btn btn-primary btn-addquestion" onClick={this.addQuestion}>Add Question</button>
 					</div>
 				</div>
 				<div className="row">
-					<button className="btn btn-primary" onClick={this.handleSubmit}>Create</button>
+					<button className="btn btn-primary btn-create" onClick={this.handleSubmit}>Create</button>
 				</div>
 			</div>
 		])

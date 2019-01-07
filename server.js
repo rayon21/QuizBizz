@@ -10,6 +10,10 @@ var {Quiz} = require('./models/quiz');
 var {authenticate} = require('./middleware/authenticate');
 const {ObjectID} = require('mongodb');
 
+const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = '919745745086-u1k3o9ibi1tmvlcdvjc5mpud98f0thus.apps.googleusercontent.com'
+const client = new OAuth2Client(CLIENT_ID);
+
 var app = express();
 const port = process.env.PORT || 5622;
 
@@ -59,6 +63,38 @@ app.delete('/users/logout', authenticate, (req, res) => {
 	}, () => {
 		res.status(400).send();
 	});
+})
+
+//*****  GOOGLE OAUTH API *****//
+app.post('/users/auth/google', async (req, res) => {
+  var body = _.pick(req.body, ['tokenId', 'accessToken'])
+  const ticket = client.verifyIdToken({
+    idToken: body.tokenId,
+    audience: CLIENT_ID
+  }).then((ticket) => {
+    const payload = ticket.getPayload();
+    const userid = payload['sub'];
+
+    //check if user already exists
+    User.findOne({email: payload.email}).then((user) => {
+      if (!user) {
+        var user = new User({email: payload.email, password: null});
+        user.save().then(() => {
+          return user.generateAuthToken();
+        }).then(token => {
+          res.header('x-auth', token).send({user});
+        })
+      } else {
+        // user already exists, just login
+        user.generateAuthToken().then(token => {
+          res.header('x-auth', token).send({user});
+        })
+      }
+    })
+  }).catch(err => {
+    console.log(err);
+    res.status(400).send();
+  })
 })
 
 
@@ -213,6 +249,8 @@ io.sockets.on('connection', function (socket) {
 });
 
 
+/* for testing */
+module.exports = app;
 
 
 

@@ -95,7 +95,7 @@ class QuizzesPage extends Component {
 			<div className="container mt-5" key="quiz-container">
 				<h1>My Quizzes</h1>
 				<div className="d-flex justify-content-end">
-					<Link to="/create"><button className="btn btn-primary">Create new quiz</button></Link>
+					<Link to="/create"><button className="btn btn-primary btn-createquiz">Create new quiz</button></Link>
 				</div>
 				<div className="mt-3 mb-5">
 					{this.renderQuizzes()}
