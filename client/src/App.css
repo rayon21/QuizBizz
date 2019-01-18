@@ -1,8 +1,9 @@
-
+body {
+  line-height: 0 !important;
+}
 
 .App {
   text-align: center;
-  line-height: 0;
 }
 
 .App-logo {
@@ -86,6 +87,7 @@ html, body, #root {
   box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.00);
   padding-right: 25px;
   padding-left: 25px;
+  margin-bottom: 100px;
 }
 
 /*.reg-container input {

@@ -25,7 +25,7 @@ class RegistrationPage extends Component {
 									<h4 className="text-white">Have fun</h4>
 								</div>
 								<Link to="/join" className="mb-4">
-									<h2 className="join-room-button text-center">JOIN A ROOM HERE</h2>
+									<h4 className="join-room-button text-center">Have a code? Join here!</h4>
 								</Link>
 							</div>
 						</div>

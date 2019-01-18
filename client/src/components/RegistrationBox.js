@@ -91,7 +91,7 @@ class RegistrationBox extends Component {
 	render() {
 		return (
 			<div className="d-flex pr-5 pl-5 flex-column">
-				<div className="col-sm-12 pb-3 pt-4 mb-4 reg-container">
+				<div className="col-sm-12 pb-4 pt-4 mb-4 reg-container">
 				{this.state.error ? <span className="error-text d-block text-center">The email has already been used.</span> : undefined}
 					<h4 className="mt-4 mb-2">Join with your email</h4>
 					<form action="" className="">
@@ -113,7 +113,7 @@ class RegistrationBox extends Component {
 					      onChange={this.handleChange('password')}
 					      onBlur={this.validatePassword}
 					      error={this.state.validPassword || this.state.validPassword == null ? false : true}
-					      helperText={this.state.validPassword || this.state.validPassword == null ? "" : "Password must be 6 characters in length"}
+					      helperText={this.state.validPassword || this.state.validPassword == null ? "" : "Password must be atleast 6 characters in length"}
 					    />
 					    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
 					    	<button className="btn btn-primary mt-4 mb-3 d-flex align-items-center reg-button" onClick={this.register}>
